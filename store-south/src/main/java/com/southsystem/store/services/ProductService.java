@@ -96,9 +96,7 @@ public class ProductService {
 				// OK
 				System.out.println("\n------           Lista de Produtos           ------\n");
 
-				produtos.forEach(product -> {
-					System.out.println(product + "\n\n");
-				});
+				produtos.forEach(System.out::println);
 
 				System.out.println("\n---------------------------------------------------");
 				System.out.println("|                     Edição                      |");
@@ -106,16 +104,17 @@ public class ProductService {
 				System.out.println("Deseja cancelar operação? [S/N]");
 				System.out.println("-> ");
 				char opcao = sc.next().charAt(0);
-
+				sc.nextLine();
+				
 				if (opcao == 'S' || opcao == 's') {
 					break;
 				}
 				System.out.println("Digite o ID do produto no qual deseja editar");
 				System.out.print("-> ");
-				int ident = sc.nextInt();
-				sc.nextLine();
+				String ident = sc.nextLine();
+				
 				produtos.forEach(product -> {
-					if (product.getId().equals(ident)) {
+					if (product.getId().equals(Integer.parseInt(ident)) && product.getId()!= 0) {
 
 						System.out.println("Novo nome");
 						System.out.print("-> ");
@@ -154,9 +153,7 @@ public class ProductService {
 				System.out.println("|                    Exclusão                     |");
 				System.out.println("---------------------------------------------------");
 				System.out.println("\n------           Lista de Produtos           ------\n");
-				produtos.forEach(product -> {
-					System.out.println(product);
-				});
+				produtos.forEach(System.out::println);
 				try {
 					System.out.println("Digite o ID do produto no qual deseja excluir");
 					System.out.print("-> ");
@@ -222,9 +219,7 @@ public class ProductService {
 				// OK
 				System.out.println("\n------           Lista de Produtos           ------\n");
 				if (!produtos.isEmpty()) {
-					produtos.forEach(product -> {
-						System.out.println(product);
-					});
+					produtos.forEach(System.out::println);
 				} else {
 					System.out.println("\n    #######         LISTA VAZIA!        #######\n");
 				}

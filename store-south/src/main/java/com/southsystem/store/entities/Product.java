@@ -13,9 +13,9 @@ public class Product {
 	private Integer amount;
 
 	private String category;
-	
+
 	public Product() {
-		
+
 	}
 
 	public Product(String name, double price, int amount, String category, int id) {

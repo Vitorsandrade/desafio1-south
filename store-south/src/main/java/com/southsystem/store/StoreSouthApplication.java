@@ -1,14 +1,15 @@
 package com.southsystem.store;
 
-import com.southsystem.store.services.ProductService;
+import static com.southsystem.store.controllers.ProductController.presentation;
+import static com.southsystem.store.controllers.ProductController.start;
 
 public class StoreSouthApplication {
 
 	public static void main(String[] args) {
 
-		ProductService.apresentacao(false);
-		ProductService.cod();
-		ProductService.apresentacao(true);
+		presentation(false);
+		start();
+		presentation(true);
 	}
 
 }

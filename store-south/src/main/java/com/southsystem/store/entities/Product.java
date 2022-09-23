@@ -4,26 +4,25 @@ import java.util.Objects;
 
 public class Product {
 
-	private Integer id;
-
 	private String name;
+
+	private String category;
 
 	private Double price;
 
 	private Integer amount;
 
-	private String category;
-
 	public Product() {
 
 	}
 
-	public Product(String name, double price, int amount, String category, int id) {
+	public Product(String name, String category, double price, int amount) {
 		this.name = name;
+		this.category = category;
 		this.price = price;
 		this.amount = amount;
-		this.category = category;
-		this.id = id;
+		
+
 	}
 
 	public String getName() {
@@ -58,19 +57,15 @@ public class Product {
 		this.category = category;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
 	@Override
 	public String toString() {
-		return "Produto ID - " + this.id + "\nNome - " + this.name + "\nCategoria - " + this.category + "\nPreço - R$"
-				+ this.price + "\nQuantidade - " + this.amount + "\n";
+		return "\nProduto:\nNome - " + this.name + "\nCategoria - " + this.category + "\nPreço - R$" + this.price
+				+ "\nQuantidade - " + this.amount + "\n";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(name);
 	}
 
 	@Override
@@ -82,7 +77,7 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(name, other.name);
 	}
 
 }

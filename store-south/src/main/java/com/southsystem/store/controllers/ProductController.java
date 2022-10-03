@@ -1,16 +1,29 @@
 package com.southsystem.store.controllers;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Scanner;
 
+import com.southsystem.store.entities.Product;
+import com.southsystem.store.services.DataBase;
 import com.southsystem.store.services.ProductService;
+import com.southsystem.store.validators.Validators;
 
 public class ProductController {
 
+	HashMap<String, Product> products;
+	ProductService productService;
+
+	public ProductController() {
+		this.products = DataBase.instance().recovering();
+		this.productService = new ProductService(products);
+	}
+
 	public static Boolean presentation(boolean d) {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy HH:mm");
-		
+
 		Date data = new Date();
 
 		if (d == false) {
@@ -24,8 +37,10 @@ public class ProductController {
 		return d;
 	}
 
+	
 	public static String menu() {
-		Scanner sc = new Scanner(System.in);
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
 
 		System.out.println("---------------------------------------------------");
 		System.out.println("|      DIGITE O NÚMERO DA OPÇÃO QUE DESEJA        |");
@@ -38,88 +53,47 @@ public class ProductController {
 		System.out.println("|            6 - Sair                             |");
 		System.out.println("---------------------------------------------------");
 		System.out.print("-> ");
-		String option = sc.nextLine();
-
+		String option = scan.nextLine();
+		
 		return option;
-
 	}
 
-	public static void start() {
-		Scanner sc = new Scanner(System.in);
+	public void start() {
+		Scanner scan = new Scanner(System.in);
 
-		ProductService productService = new ProductService();
-		
-		productService.registerModel("MODELO","MODELO", 0, 0 );
+		Validators.saveModel("MODELO", BigDecimal.ZERO, 0, "MODELO", "000000000000", "00000000", "MODELO", "MODELO",
+				"MODELO");
 
 		int fim = 0;
-		char opcao;
 
 		do {
 			switch (menu()) {
 			case "1":
 
-				opcao = productService.cancelOption();
-
-				if (opcao == 'S' || opcao == 's') {
-					System.out.println("\nOperação Cancelada!\n");
-					break;
-				} else if (opcao == 'n' || opcao == 'N') {
-					productService.addProduct();
-				} else
-					System.out.println("\nCaracter Inválido!!\n");
+				ProductService.postProduct();
 
 				fim = 1;
 				break;
 
 			case "2":
-				opcao = productService.cancelOption();
-
-				if (opcao == 'S' || opcao == 's') {
-					System.out.println("\nOperação Cancelada!\n");
-					break;
-				} else if (opcao == 'n' || opcao == 'N') {
-					productService.getAll();
-					productService.putProduct();
-				} else
-					System.out.println("\nCaracter Inválido!!\n");
+				
+				ProductService.putProduct();
 
 				fim = 2;
 				break;
 
 			case "3":
 
-				opcao = productService.cancelOption();
-
-				if (opcao == 'S' || opcao == 's') {
-					System.out.println("\nOperação Cancelada!\n");
-					break;
-				} else if (opcao == 'n' || opcao == 'N') {
-					productService.getAll();
-					productService.deleteProduct();
-				} else
-					System.out.println("\nCaracter Inválido!!\n");
-
 				fim = 3;
 				break;
 
 			case "4":
 
-				opcao = productService.cancelOption();
-
-				if (opcao == 'S' || opcao == 's') {
-					System.out.println("\nOperação Cancelada!\n");
-					break;
-				} else if (opcao == 'n' || opcao == 'N') {
-					productService.importShowcase();
-				} else
-					System.out.println("\nCaracter Inválido!!\n");
-
 				fim = 4;
 				break;
 
 			case "5":
-
-				productService.getAll();
+				DataBase.instance().getAll();
 
 				fim = 5;
 				break;
@@ -136,7 +110,7 @@ public class ProductController {
 			}
 
 		} while (fim != 6);
-		sc.close();
+		scan.close();
 
 	}
 }

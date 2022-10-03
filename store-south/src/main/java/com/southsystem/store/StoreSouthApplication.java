@@ -1,14 +1,17 @@
 package com.southsystem.store;
 
 import static com.southsystem.store.controllers.ProductController.presentation;
-import static com.southsystem.store.controllers.ProductController.start;
+
+import com.southsystem.store.controllers.ProductController;
 
 public class StoreSouthApplication {
 
 	public static void main(String[] args) {
 
+		ProductController productController = new ProductController();
+
 		presentation(false);
-		start();
+		productController.start();
 		presentation(true);
 	}
 

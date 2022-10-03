@@ -1,182 +1,223 @@
-package com.southsystem.store.services;
+																																												package com.southsystem.store.services;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
+import static com.southsystem.store.validators.Validators.cancelOrConfirm;
+import static com.southsystem.store.validators.Validators.insertDataBase;
+import static com.southsystem.store.validators.Validators.searchProduct;
+import static com.southsystem.store.validators.Validators.validarPreco;
+import static com.southsystem.store.validators.Validators.validarQuantidade;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import com.southsystem.store.entities.Product;
 
 public class ProductService {
 
-	Scanner sc = new Scanner(System.in);
+	private static HashMap<String, Product> products;
 
-	private List<Product> products = new ArrayList<Product>();
+	public ProductService(HashMap<String, Product> products) {
+		ProductService.products = products;
 
-	public void addProduct() {
+	}
+
+	public static void postProduct(){
+
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
+
 		System.out.println("\n---------------------------------------------------");
 		System.out.println("|                    Registro                     |");
 		System.out.println("---------------------------------------------------");
 
 		System.out.println("Digite o nome do produto ");
 		System.out.print("-> ");
-		String name = sc.nextLine();
+		String name = scan.nextLine();
 
-		System.out.println("Digite a categoria do produto ");
-		System.out.print("-> ");
-		String category = sc.nextLine();
-
-		System.out.println("Digite a sua quantidade ");
-		System.out.print("-> ");
-		String amount = sc.nextLine();
-
-		System.out.println("Digite o preço do produto ");
-		System.out.print("-> ");
-		String price = sc.nextLine();
-
-		try {
-			products.add(new Product(name, category, Double.parseDouble(price), Integer.parseInt(amount)));
-			System.out.println("\nProduto registrado com sucesso!\n");
-
-		} catch (NumberFormatException e) {
-			System.out.println("\nDigite um campo válido no Preço/Quantidade!!\n");
+		boolean add = true;
+		for (Product product : products.values()) {
+			if (product.getName().equalsIgnoreCase(name)) {
+				System.out.println("Produto com o nome " + name + " Já castarado!");
+				add = false;
+			}
 		}
+
+		if (add) {
+
+			while (name.isEmpty()) {
+				System.out.println("Digite o nome do produto ");
+				System.out.print("-> ");
+				name = scan.nextLine();
+
+			}
+			System.out.println("Digite a categoria do produto ");
+			System.out.print("-> ");
+			String category = scan.nextLine();
+
+			BigDecimal price = validarPreco("");
+
+			Integer amount = validarQuantidade();
+
+			if (cancelOrConfirm()) {
+				insertDataBase(name, price, amount, category);
+
+			} else {
+				System.out.println("OPERAÇÃO CANCELADA!");
+			}
+		}
+		DataBase.instance().saveOnFile();
 
 	}
 
-	public void putProduct() {
+	public static void putProduct() {
+
+		DataBase.instance().getAll();
 
 		System.out.println("\n---------------------------------------------------");
 		System.out.println("|                     Edição                      |");
 		System.out.println("---------------------------------------------------");
 
-		try {
-			System.out.println("Digite o Nome do produto no qual deseja editar");
-			System.out.print("-> ");
-			String ident = sc.nextLine();
+		if (!products.isEmpty()) {
 
-			products.forEach(product -> {
-				if ((product.getName().toUpperCase()).equals(ident.toUpperCase()) && product.getName() != "MODELO") {
+			@SuppressWarnings("resource")
+			Scanner scan = new Scanner(System.in);
+			Product product = searchProduct();
 
-					System.out.println("Novo nome");
-					System.out.print("-> ");
-					String newName = sc.nextLine();
+			Product productTemp = product;
 
-					System.out.println("Nova Categoria ");
-					System.out.print("-> ");
-					String newCategory = sc.nextLine();
+			boolean verification = false;
+			String option = "";
 
-					System.out.println("Novo Preço ");
-					System.out.print("-> ");
-					String newPrice = sc.nextLine();
-					Double.parseDouble(newPrice);
+			do {
+				System.out.print("Qual dado quer modificar:\n [1]Nome\n [2]Categoria\n [3]preço\n [4]quantidade\n ");
+				System.out.print("-> ");
+				option = scan.next();
 
-					System.out.println("Nova Quantidade ");
-					System.out.print("-> ");
-					String newAmount = sc.nextLine();
-					Integer.parseInt(newAmount);
+				verification = option.equals("1") || option.equals("2") || option.equals("3") || option.equals("4");
 
-					try {
-						product.setName(newName);
-						product.setCategory(newCategory);
-						product.setPrice(Double.parseDouble(newPrice));
-						product.setAmount(Integer.parseInt(newAmount));
+			} while (!verification);
 
-						System.out.println("\nProduto editado com sucesso!\n");
-					} catch (NumberFormatException e) {
-						System.out.println("\nInsira um campo válido no Preço/Quantidade!!\n");
-					}
-				}
+			switch (option) {
+			case "1":
+				scan.nextLine();
+				System.out.println("Digite o novo nome ");
+				System.out.print("-> ");
+				String newName = scan.nextLine();
+				product.setName(newName);
+				break;
 
-			});
+			case "2":
+				scan.nextLine();
+				System.out.println("Digite a nova categoria ");
+				System.out.print("-> ");
+				String newCategory = scan.nextLine();
+				product.setCategory(newCategory);
 
-		} catch (NumberFormatException e) {
-			System.out.println("\nInsira um campo válido\n");
-		}
+				break;
 
-	}
+			case "3":
+				BigDecimal newPrice = validarPreco("");
+				product.setPrice(newPrice);
 
-	public void deleteProduct() {
-		System.out.println("\n---------------------------------------------------");
-		System.out.println("|                    Exclusão                     |");
-		System.out.println("---------------------------------------------------");
+				break;
 
-		try {
-			System.out.println("Digite o Nome do produto no qual deseja excluir");
-			System.out.print("-> ");
-			String exc = sc.nextLine();
+			case "4":
+				Integer newAmount = validarQuantidade();
+				product.setAmount(newAmount);
 
-			int index = 0;
-			for (Product product : products) {
-				if (product.getName().toUpperCase().equals(exc.toUpperCase())) {
-					index = products.indexOf(product);
-				}
+				break;
+			default:
+
 			}
 
-			if (index != 0) {
-				products.remove(index);
-				System.out.println("\nProduto excluido com sucesso!\n");
+			if (cancelOrConfirm()) {
+				System.out.println("PRODUTO EDITADO COM SUCESSO!");
+
 			} else {
-				System.out.println("\nNOME INVÁLIDO\n");
+				switch (option) {
+				case "1":
+					product.setName(productTemp.getName());
+					break;
+
+				case "2":
+					product.setPrice(productTemp.getPrice());
+					break;
+
+				case "3":
+					product.setAmount(productTemp.getAmount());
+					break;
+
+				default:
+					product.setCategory(productTemp.getCategory());
+				}
+				System.out.println("Operação cancelada");
 			}
-
-		} catch (InputMismatchException e) {
-			System.out.println("\nNOME INVÁLIDO\n");
-		} catch (NumberFormatException e) {
-			System.out.println("\nNOME INVÁLIDO\n");
-		}
-	}
-
-	public void importShowcase() {
-		System.out.println("\n---------------------------------------------------");
-		System.out.println("|                   importação                    |");
-		System.out.println("---------------------------------------------------");
-		System.out.println("\nDigite o caminho do arquivo .csv");
-		System.out.print("-> ");
-		String path = sc.nextLine();
-
-		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-
-			String line = br.readLine();
-
-			while (line != null) {
-				String[] vect = line.split(",");
-				products.add(new Product(vect[0], vect[1], Double.parseDouble(vect[2]), Integer.parseInt(vect[3])));
-
-				line = br.readLine();
-			}
-			System.out.println("\nArquivo importado com sucesso!\n");
-
-		} catch (FileNotFoundException e) {
-			System.out.println("\nArquivo não encontrado\n");
-
-		} catch (IOException e) {
-			System.out.println("\nArquivo não encontrado\n");
+		} else {
+			System.out.println("Lista ainda não tem produtos");
 		}
 
+		DataBase.instance().saveOnFile();
 	}
-
-	public void getAll() {
-		System.out.println("\n------           Lista de Produtos           ------\n");
-
-		products.forEach(System.out::println);
-	}
-
-	public char cancelOption() {
-		System.out.println("Deseja cancelar operação e voltar ao menu? [S/N]");
-		System.out.print("-> ");
-		char option = sc.next().charAt(0);
-		sc.nextLine();
-
-		return option;
-	}
-
-	public void registerModel(String model, String category, double price, int amount) {
-		products.add(new Product(model, category, price, amount));
-	}
+//
+//	public void deleteProduct() {
+//		System.out.println("\n---------------------------------------------------");
+//		System.out.println("|                    Exclusão                     |");
+//		System.out.println("---------------------------------------------------");
+//
+//		try {
+//			System.out.println("Digite o Nome do produto no qual deseja excluir");
+//			System.out.print("-> ");
+//			String exc = sc.nextLine();
+//
+//			int index = 0;
+//			for (Product product : products) {
+//				if (product.getName().toUpperCase().equals(exc.toUpperCase())) {
+//					index = products.indexOf(product);
+//				}
+//			}
+//
+//			if (index != 0) {
+//				products.remove(index);
+//				System.out.println("\nProduto excluido com sucesso!\n");
+//			} else {
+//				System.out.println("\nNOME INVÁLIDO\n");
+//			}
+//
+//		} catch (InputMismatchException e) {
+//			System.out.println("\nNOME INVÁLIDO\n");
+//		} catch (NumberFormatException e) {
+//			System.out.println("\nNOME INVÁLIDO\n");
+//		}
+//	}
+//
+//	public void importShowcase() {
+//		System.out.println("\n---------------------------------------------------");
+//		System.out.println("|                   importação                    |");
+//		System.out.println("---------------------------------------------------");
+//		System.out.println("\nDigite o caminho do arquivo .csv");
+//		System.out.print("-> ");
+//		String path = sc.nextLine();
+//
+//		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+//
+//			String line = br.readLine();
+//
+//			while (line != null) {
+//				String[] vect = line.split(",");
+//				products.add(new Product(vect[0], vect[1], vect[2], Integer.parseInt(vect[3])));
+//
+//				line = br.readLine();
+//			}
+//			System.out.println("\nArquivo importado com sucesso!\n");
+//
+//		} catch (FileNotFoundException e) {
+//			System.out.println("\nArquivo não encontrado\n");
+//
+//		} catch (IOException e) {
+//			System.out.println("\nArquivo não encontrado\n");
+//		}
+//
+//	}
+//
 
 }

@@ -1,28 +1,68 @@
 package com.southsystem.store.entities;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Product {
+
+	private String id;
+
+	private String barCode;
+
+	private String description;
 
 	private String name;
 
 	private String category;
 
-	private Double price;
+	private BigDecimal price;
 
 	private Integer amount;
+
+	private String color;
+
+	private String material;
 
 	public Product() {
 
 	}
 
-	public Product(String name, String category, double price, int amount) {
+	public Product(String id, String barCode, String description, String name, String category, BigDecimal price,
+			Integer amount, String color, String material) {
+		super();
+		this.id = id;
+		this.barCode = barCode;
+		this.description = description;
 		this.name = name;
 		this.category = category;
 		this.price = price;
 		this.amount = amount;
-		
+		this.color = color;
+		this.material = material;
+	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getBarCode() {
+		return barCode;
+	}
+
+	public void setBarCode(String barCode) {
+		this.barCode = barCode;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getName() {
@@ -33,11 +73,19 @@ public class Product {
 		this.name = name;
 	}
 
-	public Double getPrice() {
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
@@ -49,23 +97,25 @@ public class Product {
 		this.amount = amount;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getColor() {
+		return color;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setColor(String color) {
+		this.color = color;
 	}
 
-	@Override
-	public String toString() {
-		return "\nProduto:\nNome - " + this.name + "\nCategoria - " + this.category + "\nPreço - R$" + this.price
-				+ "\nQuantidade - " + this.amount + "\n";
+	public String getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(String material) {
+		this.material = material;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -77,7 +127,19 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		return Objects.equals(name, other.name);
+		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "\nID PRODUTO: " + id + ",\n" + "CODIGO: " + barCode + ",\n" + "NOME: " + name + ",\n" + "DESCRIÇÃO: "
+				+ description + ",\n" + "CATEGORIA: " + category + ",\n" + "PREÇO: " + price + ",\n" + "QUANTIDADE: "
+				+ amount + ",\n" + "COR: " + color + ",\n" + "MATERIAL: " + material + "\n";
+	}
+
+	public String toStringFile() {
+		return this.id + "," + this.barCode + "," + this.description + "," + this.name + "," + this.category + ","
+				+ this.price + "," + this.amount + "," + this.color + "," + this.material;
 	}
 
 }

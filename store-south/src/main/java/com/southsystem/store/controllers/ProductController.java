@@ -84,6 +84,8 @@ public class ProductController {
 
 			case "3":
 
+				ProductService.deleteProduct();
+				
 				fim = 3;
 				break;
 

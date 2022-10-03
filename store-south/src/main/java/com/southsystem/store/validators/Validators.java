@@ -109,9 +109,7 @@ public class Validators {
 
 		} while (productDataBase == null);
 
-		System.out.println("\nPRODUTO VÁLIDO! \n" + "Id Produto: " + productDataBase.getId() + ", \n" + "Nome: "
-				+ productDataBase.getName() + ", \n" + "Preço: " + productDataBase.getPrice() + ", \n" + "Quantidade: "
-				+ productDataBase.getAmount() + ", \n" + "Categoria: " + productDataBase.getCategory() + "\n");
+		System.out.println("\nPRODUTO VÁLIDO: \n" + productDataBase);
 
 		return productDataBase;
 	}

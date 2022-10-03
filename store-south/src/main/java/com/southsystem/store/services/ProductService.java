@@ -1,4 +1,4 @@
-																																												package com.southsystem.store.services;
+package com.southsystem.store.services;
 
 import static com.southsystem.store.validators.Validators.cancelOrConfirm;
 import static com.southsystem.store.validators.Validators.insertDataBase;
@@ -21,7 +21,7 @@ public class ProductService {
 
 	}
 
-	public static void postProduct(){
+	public static void postProduct() {
 
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
@@ -150,7 +150,7 @@ public class ProductService {
 				default:
 					product.setCategory(productTemp.getCategory());
 				}
-				System.out.println("Operação cancelada");
+				System.out.println("OPERAÇÃO CANCELADA!");
 			}
 		} else {
 			System.out.println("Lista ainda não tem produtos");
@@ -158,12 +158,31 @@ public class ProductService {
 
 		DataBase.instance().saveOnFile();
 	}
+
+	public static void deleteProduct() {
+		if (products.size() >= 2) {
+			DataBase.instance().getAll();
+			Product product = searchProduct();
+			
+			System.out.println("\n---------------------------------------------------");
+			System.out.println("|                    Exclusão                     |");
+			System.out.println("---------------------------------------------------");
+
+			if (cancelOrConfirm()) {
+				DataBase.instance().deleteProduct(product);
+				System.out.println("PRODUTO EXCLUIDO COM SUCESSO!");
+			} else {
+				System.out.println("OPERAÇÃO CANCELADA!");
+			}
+		} else {
+			System.out.println("PRIMEIRO PREENCHA A LISTA DE PRODUTOS!");
+		}
+		DataBase.instance().saveOnFile();
+	}
 //
 //	public void deleteProduct() {
-//		System.out.println("\n---------------------------------------------------");
-//		System.out.println("|                    Exclusão                     |");
-//		System.out.println("---------------------------------------------------");
-//
+
+
 //		try {
 //			System.out.println("Digite o Nome do produto no qual deseja excluir");
 //			System.out.print("-> ");

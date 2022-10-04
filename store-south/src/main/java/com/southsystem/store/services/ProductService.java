@@ -1,15 +1,13 @@
 package com.southsystem.store.services;
 
-import static com.southsystem.store.validators.Validators.cancelOrConfirm;
-import static com.southsystem.store.validators.Validators.insertDataBase;
-import static com.southsystem.store.validators.Validators.searchProduct;
-import static com.southsystem.store.validators.Validators.validarPreco;
-import static com.southsystem.store.validators.Validators.validarQuantidade;
+import static com.southsystem.store.validacao.Validacoes.validarPreco;
+import static com.southsystem.store.validacao.Validacoes.validarQuantidade;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import com.southsystem.store.builders.ProductBuilder;
 import com.southsystem.store.entities.Product;
 
 public class ProductService {
@@ -50,9 +48,12 @@ public class ProductService {
 				name = scan.nextLine();
 
 			}
-			System.out.println("Digite a categoria do produto ");
-			System.out.print("-> ");
-			String category = scan.nextLine();
+			String category = "";
+			while (category.isEmpty()) {
+				System.out.println("Digite a categoria do produto ");
+				System.out.print("-> ");
+				category = scan.nextLine();
+			}
 
 			BigDecimal price = validarPreco("");
 
@@ -163,7 +164,7 @@ public class ProductService {
 		if (products.size() >= 2) {
 			DataBase.instance().getAll();
 			Product product = searchProduct();
-			
+
 			System.out.println("\n---------------------------------------------------");
 			System.out.println("|                    Exclusão                     |");
 			System.out.println("---------------------------------------------------");
@@ -179,64 +180,82 @@ public class ProductService {
 		}
 		DataBase.instance().saveOnFile();
 	}
-//
-//	public void deleteProduct() {
 
+	public static void importShowcase() {
 
-//		try {
-//			System.out.println("Digite o Nome do produto no qual deseja excluir");
-//			System.out.print("-> ");
-//			String exc = sc.nextLine();
-//
-//			int index = 0;
-//			for (Product product : products) {
-//				if (product.getName().toUpperCase().equals(exc.toUpperCase())) {
-//					index = products.indexOf(product);
-//				}
-//			}
-//
-//			if (index != 0) {
-//				products.remove(index);
-//				System.out.println("\nProduto excluido com sucesso!\n");
-//			} else {
-//				System.out.println("\nNOME INVÁLIDO\n");
-//			}
-//
-//		} catch (InputMismatchException e) {
-//			System.out.println("\nNOME INVÁLIDO\n");
-//		} catch (NumberFormatException e) {
-//			System.out.println("\nNOME INVÁLIDO\n");
-//		}
-//	}
-//
-//	public void importShowcase() {
-//		System.out.println("\n---------------------------------------------------");
-//		System.out.println("|                   importação                    |");
-//		System.out.println("---------------------------------------------------");
-//		System.out.println("\nDigite o caminho do arquivo .csv");
-//		System.out.print("-> ");
-//		String path = sc.nextLine();
-//
-//		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-//
-//			String line = br.readLine();
-//
-//			while (line != null) {
-//				String[] vect = line.split(",");
-//				products.add(new Product(vect[0], vect[1], vect[2], Integer.parseInt(vect[3])));
-//
-//				line = br.readLine();
-//			}
-//			System.out.println("\nArquivo importado com sucesso!\n");
-//
-//		} catch (FileNotFoundException e) {
-//			System.out.println("\nArquivo não encontrado\n");
-//
-//		} catch (IOException e) {
-//			System.out.println("\nArquivo não encontrado\n");
-//		}
-//
-//	}
-//
+		if (cancelOrConfirm()) {
+			try {
+				DataBase.instance().readFromShowcase();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			System.out.println("Operação cancelada");
+		}
+		DataBase.instance().getAll();
+	}
+
+	public static void insertDataBase(String name, BigDecimal price, Integer amount, String category) {
+		DataBase.instance().persistence(new ProductBuilder(name, category, price, amount).buildProduct());
+
+		System.out.println("\nPRODUTO ADICIONADO COM SUCESSO! \n");
+	}
+
+	public static void saveModel(String name, BigDecimal price, Integer amount, String category, String codBar,
+			String id, String color, String description, String material) {
+		DataBase.instance().persistence(new ProductBuilder(name, category, price, amount).barCode(codBar).id(id)
+				.color(color).description(description).material(material).buildProductModel());
+	}
+
+	public static Boolean cancelOrConfirm() {
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
+
+		System.out.println("Confirmar a operação? [1] para confirmar / [2] para cancelar");
+		System.out.print("-> ");
+		String cancelOrConfirm = scan.nextLine();
+
+		boolean check = cancelOrConfirm.equals("1") || cancelOrConfirm.equals("2");
+
+		while (!check) {
+			System.out.println("OPERAÇÃO INVÁLIDA!");
+			System.out.print("[1] para confirmar / [2] para cancelar");
+			System.out.print("-> ");
+			cancelOrConfirm = scan.nextLine();
+
+			check = cancelOrConfirm.equals("1") || cancelOrConfirm.equals("2");
+		}
+
+		if (cancelOrConfirm.equals("1")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static Product searchProduct() {
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
+		Product productDataBase = null;
+		do {
+			System.out.println("\nInforme o Id do produto");
+			System.out.print("-> ");
+			String productId = scan.next();
+			for (Product product : DataBase.instance().recovering().values()) {
+				if (productId.equalsIgnoreCase(product.getId()) && !product.getId().equals("00000000")) {
+					productDataBase = DataBase.instance().recovering().get(productId);
+				}
+			}
+			if (productDataBase == null) {
+				System.out.println("PRODUTO COM O ID " + productId + " INVÁLIDO!");
+			}
+
+		} while (productDataBase == null);
+
+		System.out.println("\nPRODUTO VÁLIDO: \n" + productDataBase);
+
+		return productDataBase;
+	}
 
 }

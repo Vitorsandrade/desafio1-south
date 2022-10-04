@@ -9,7 +9,6 @@ import java.util.Scanner;
 import com.southsystem.store.entities.Product;
 import com.southsystem.store.services.DataBase;
 import com.southsystem.store.services.ProductService;
-import com.southsystem.store.validators.Validators;
 
 public class ProductController {
 
@@ -37,7 +36,6 @@ public class ProductController {
 		return d;
 	}
 
-	
 	public static String menu() {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
@@ -54,14 +52,14 @@ public class ProductController {
 		System.out.println("---------------------------------------------------");
 		System.out.print("-> ");
 		String option = scan.nextLine();
-		
+
 		return option;
 	}
 
 	public void start() {
 		Scanner scan = new Scanner(System.in);
 
-		Validators.saveModel("MODELO", BigDecimal.ZERO, 0, "MODELO", "000000000000", "00000000", "MODELO", "MODELO",
+		ProductService.saveModel("MODELO", BigDecimal.ZERO, 0, "MODELO", "000000000000", "00000000", "MODELO", "MODELO",
 				"MODELO");
 
 		int fim = 0;
@@ -76,7 +74,7 @@ public class ProductController {
 				break;
 
 			case "2":
-				
+
 				ProductService.putProduct();
 
 				fim = 2;
@@ -85,16 +83,19 @@ public class ProductController {
 			case "3":
 
 				ProductService.deleteProduct();
-				
+
 				fim = 3;
 				break;
 
 			case "4":
 
+				ProductService.importShowcase();
+
 				fim = 4;
 				break;
 
 			case "5":
+				
 				DataBase.instance().getAll();
 
 				fim = 5;

@@ -1,10 +1,10 @@
-package com.southsystem.store.generators;
+package com.southsystem.store.geradores;
 
 import java.util.Random;
 
-public class Generators {
+public class Geradores {
 
-	public static String returnId() {
+	public static String gerarId() {
 		String characters = "abcdefghijkmnopqrstuvwxyz023456789";
 		String randomString = "";
 		int length = 8;
@@ -25,7 +25,7 @@ public class Generators {
 
 	}
 
-	public static String returnCodBar() {
+	public static String gerarCodBar() {
 
 		String characters = "0123456789";
 		String randomString = "";

@@ -1,4 +1,4 @@
-package com.southsystem.store;
+package com.southsystem.store.program;
 
 import static com.southsystem.store.controllers.ProductController.presentation;
 

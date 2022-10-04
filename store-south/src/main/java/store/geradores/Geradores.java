@@ -1,4 +1,4 @@
-package com.southsystem.store.geradores;
+package store.geradores;
 
 import java.util.Random;
 

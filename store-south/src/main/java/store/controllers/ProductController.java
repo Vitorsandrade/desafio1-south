@@ -1,4 +1,4 @@
-package com.southsystem.store.controllers;
+package store.controllers;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -6,9 +6,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import com.southsystem.store.entities.Product;
-import com.southsystem.store.services.DataBase;
-import com.southsystem.store.services.ProductService;
+import store.entities.Product;
+import store.services.DataBase;
+import store.services.ProductService;
 
 public class ProductController {
 
@@ -89,7 +89,7 @@ public class ProductController {
 
 			case "4":
 
-				ProductService.importShowcase();
+				ProductService.importFile();
 
 				fim = 4;
 				break;

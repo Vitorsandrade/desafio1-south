@@ -1,4 +1,4 @@
-package com.southsystem.store.validacao;
+package store.validacao;
 
 import java.math.BigDecimal;
 import java.util.InputMismatchException;

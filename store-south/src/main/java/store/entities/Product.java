@@ -1,4 +1,4 @@
-package com.southsystem.store.entities;
+package store.entities;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -133,7 +133,7 @@ public class Product {
 	@Override
 	public String toString() {
 		return "\nID PRODUTO: " + id + ",\n" + "CODIGO: " + barCode + ",\n" + "NOME: " + name + ",\n" + "DESCRIÇÃO: "
-				+ description + ",\n" + "CATEGORIA: " + category + ",\n" + "PREÇO: " + price + ",\n" + "QUANTIDADE: "
+				+ description + ",\n" + "CATEGORIA: " + category + ",\n" + "PREÇO: R$" + price + ",\n" + "QUANTIDADE: "
 				+ amount + ",\n" + "COR: " + color + ",\n" + "MATERIAL: " + material + "\n";
 	}
 

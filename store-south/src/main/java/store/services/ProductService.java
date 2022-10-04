@@ -1,14 +1,14 @@
-package com.southsystem.store.services;
+package store.services;
 
-import static com.southsystem.store.validacao.Validacoes.validarPreco;
-import static com.southsystem.store.validacao.Validacoes.validarQuantidade;
+import static store.validacao.Validacoes.validarPreco;
+import static store.validacao.Validacoes.validarQuantidade;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import com.southsystem.store.builders.ProductBuilder;
-import com.southsystem.store.entities.Product;
+import store.builders.ProductBuilder;
+import store.entities.Product;
 
 public class ProductService {
 
@@ -28,7 +28,7 @@ public class ProductService {
 		System.out.println("|                    Registro                     |");
 		System.out.println("---------------------------------------------------");
 
-		System.out.println("Digite o nome do produto ");
+		System.out.println("Informe o nome do produto ");
 		System.out.print("-> ");
 		String name = scan.nextLine();
 
@@ -43,24 +43,44 @@ public class ProductService {
 		if (add) {
 
 			while (name.isEmpty()) {
-				System.out.println("Digite o nome do produto ");
+				System.out.println("Informe o nome do produto ");
 				System.out.print("-> ");
 				name = scan.nextLine();
 
 			}
 			String category = "";
 			while (category.isEmpty()) {
-				System.out.println("Digite a categoria do produto ");
+				System.out.println("Informe a categoria do produto ");
 				System.out.print("-> ");
 				category = scan.nextLine();
 			}
 
+			String descrption = "";
+			while (descrption.isEmpty()) {
+				System.out.println("Informe a descrição do produto");
+				System.out.print("-> ");
+				descrption = scan.nextLine();
+			}
+			String color = "";
+			while (color.isEmpty()) {
+				System.out.println("Informe a cor do produto");
+				System.out.print("-> ");
+				color = scan.nextLine();
+			}
+			String material = "";
+			while (material.isEmpty()) {
+				System.out.println("Informe o material do produto ");
+				System.out.print("-> ");
+				material = scan.nextLine();
+			}
 			BigDecimal price = validarPreco("");
 
 			Integer amount = validarQuantidade();
 
 			if (cancelOrConfirm()) {
-				insertDataBase(name, price, amount, category);
+				insertDataBase(name, price, amount, category, color, descrption, material);
+
+				System.out.println("\nPRODUTO ADICIONADO COM SUCESSO!\n");
 
 			} else {
 				System.out.println("OPERAÇÃO CANCELADA!");
@@ -181,11 +201,11 @@ public class ProductService {
 		DataBase.instance().saveOnFile();
 	}
 
-	public static void importShowcase() {
+	public static void importFile() {
 
 		if (cancelOrConfirm()) {
 			try {
-				DataBase.instance().readFromShowcase();
+				DataBase.instance().readFile();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -196,16 +216,18 @@ public class ProductService {
 		DataBase.instance().getAll();
 	}
 
-	public static void insertDataBase(String name, BigDecimal price, Integer amount, String category) {
-		DataBase.instance().persistence(new ProductBuilder(name, category, price, amount).buildProduct());
+	public static void insertDataBase(String name, BigDecimal price, Integer amount, String category, String color,
+			String description, String material) {
+		DataBase.instance().persistence(new ProductBuilder(name, category, price, amount).color(color)
+				.description(description).material(material).buildProduct());
 
-		System.out.println("\nPRODUTO ADICIONADO COM SUCESSO! \n");
 	}
 
 	public static void saveModel(String name, BigDecimal price, Integer amount, String category, String codBar,
 			String id, String color, String description, String material) {
 		DataBase.instance().persistence(new ProductBuilder(name, category, price, amount).barCode(codBar).id(id)
 				.color(color).description(description).material(material).buildProductModel());
+
 	}
 
 	public static Boolean cancelOrConfirm() {

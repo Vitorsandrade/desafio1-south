@@ -1,10 +1,10 @@
-package com.southsystem.store.builders;
+package store.builders;
 
 import java.math.BigDecimal;
 
-import com.southsystem.store.entities.Product;
-import com.southsystem.store.geradores.Geradores;
-import com.southsystem.store.services.DataBase;
+import store.entities.Product;
+import store.geradores.Geradores;
+import store.services.DataBase;
 
 public class ProductBuilder {
 

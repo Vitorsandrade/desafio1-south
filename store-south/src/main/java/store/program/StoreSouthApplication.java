@@ -1,13 +1,12 @@
-package com.southsystem.store.program;
+package store.program;
 
-import static com.southsystem.store.controllers.ProductController.presentation;
-
-import com.southsystem.store.controllers.ProductController;
+import store.controllers.ProductController;
+import static store.controllers.ProductController.presentation;
 
 public class StoreSouthApplication {
 
 	public static void main(String[] args) {
-
+		
 		ProductController productController = new ProductController();
 
 		presentation(false);

@@ -92,92 +92,95 @@ public class ProductService {
 
 	public static void putProduct() {
 
-		DataBase.instance().getAll();
+		if (products.size() >= 2) {
+			DataBase.instance().getAll();
+		}
 
 		System.out.println("\n---------------------------------------------------");
 		System.out.println("|                     Edição                      |");
 		System.out.println("---------------------------------------------------");
 
-		if (!products.isEmpty()) {
+		if (products.size() >= 2) {
 
 			@SuppressWarnings("resource")
 			Scanner scan = new Scanner(System.in);
 			Product product = searchProduct();
 
-			Product productTemp = product;
-
 			boolean verification = false;
 			String option = "";
 
 			do {
-				System.out.print("Qual dado quer modificar:\n [1]Nome\n [2]Categoria\n [3]preço\n [4]quantidade\n ");
+				System.out.print(
+						"Qual dado quer modificar:\n [1]NOME\n [2]CATEGORIA\n [3]PREÇO\n [4]QUANTIDADE\n [5]DESCRIÇÃO\n [6]COR\n [7]MATERIAL\n");
 				System.out.print("-> ");
 				option = scan.next();
 
-				verification = option.equals("1") || option.equals("2") || option.equals("3") || option.equals("4");
+				verification = option.equals("1") || option.equals("2") || option.equals("3") || option.equals("4")
+						|| option.equals("5") || option.equals("6") || option.equals("7");
 
 			} while (!verification);
 
-			switch (option) {
-			case "1":
-				scan.nextLine();
-				System.out.println("Digite o novo nome ");
-				System.out.print("-> ");
-				String newName = scan.nextLine();
-				product.setName(newName);
-				break;
-
-			case "2":
-				scan.nextLine();
-				System.out.println("Digite a nova categoria ");
-				System.out.print("-> ");
-				String newCategory = scan.nextLine();
-				product.setCategory(newCategory);
-
-				break;
-
-			case "3":
-				BigDecimal newPrice = validarPreco("");
-				product.setPrice(newPrice);
-
-				break;
-
-			case "4":
-				Integer newAmount = validarQuantidade();
-				product.setAmount(newAmount);
-
-				break;
-			default:
-
-			}
-
-			if (cancelOrConfirm()) {
-				System.out.println("PRODUTO EDITADO COM SUCESSO!");
-
-			} else {
+			if (cancelOrConfirm(option)) {
 				switch (option) {
 				case "1":
-					product.setName(productTemp.getName());
+					scan.nextLine();
+					System.out.println("Informe o novo nome ");
+					System.out.print("-> ");
+					String newName = scan.nextLine();
+					product.setName(newName);
 					break;
 
 				case "2":
-					product.setPrice(productTemp.getPrice());
+					scan.nextLine();
+					System.out.println("Informe a nova categoria ");
+					System.out.print("-> ");
+					String newCategory = scan.nextLine();
+					product.setCategory(newCategory);
 					break;
 
 				case "3":
-					product.setAmount(productTemp.getAmount());
+					BigDecimal newPrice = validarPreco("");
+					product.setPrice(newPrice);
+					break;
+
+				case "4":
+					Integer newAmount = validarQuantidade();
+					product.setAmount(newAmount);
+					break;
+
+				case "5":
+					scan.nextLine();
+					System.out.println("Informe a nova descrição ");
+					System.out.print("-> ");
+					String newDescription = scan.nextLine();
+					product.setDescription(newDescription);
+					break;
+
+				case "6":
+					scan.nextLine();
+					System.out.println("Informe a nova cor ");
+					System.out.print("-> ");
+					String newColor = scan.nextLine();
+					product.setColor(newColor);
 					break;
 
 				default:
-					product.setCategory(productTemp.getCategory());
+					scan.nextLine();
+					System.out.println("Informe o novo material ");
+					System.out.print("-> ");
+					String newMaterial = scan.nextLine();
+					product.setMaterial(newMaterial);
+					break;
 				}
-				System.out.println("OPERAÇÃO CANCELADA!");
-			}
-		} else {
-			System.out.println("Lista ainda não tem produtos");
-		}
+
+				System.out.println("\nPRODUTO ALTERADO COM SUCESSO!\n");
+			} else
+				System.out.println("\nOPERAÇÃO CANCELADA!\n");
+		} else
+			System.out.println("\nPRIMEIRO PREENCHA A LISTA DE PRODUTOS!\n");
 
 		DataBase.instance().saveOnFile();
+
 	}
 
 	public static void deleteProduct() {
@@ -235,6 +238,57 @@ public class ProductService {
 		Scanner scan = new Scanner(System.in);
 
 		System.out.println("Confirmar a operação? [1] para confirmar / [2] para cancelar");
+		System.out.print("-> ");
+		String cancelOrConfirm = scan.nextLine();
+
+		boolean check = cancelOrConfirm.equals("1") || cancelOrConfirm.equals("2");
+
+		while (!check) {
+			System.out.println("OPERAÇÃO INVÁLIDA!");
+			System.out.print("[1] para confirmar / [2] para cancelar");
+			System.out.print("-> ");
+			cancelOrConfirm = scan.nextLine();
+
+			check = cancelOrConfirm.equals("1") || cancelOrConfirm.equals("2");
+		}
+
+		if (cancelOrConfirm.equals("1")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static Boolean cancelOrConfirm(String option) {
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
+
+		String retorno = "";
+		switch (option) {
+		case "1":
+			retorno = "nome";
+			break;
+		case "2":
+			retorno = "categoria";
+			break;
+		case "3":
+			retorno = "preço";
+			break;
+		case "4":
+			retorno = "quantidade";
+			break;
+		case "5":
+			retorno = "descrição";
+			break;
+		case "6":
+			retorno = "cor";
+			break;
+		default:
+			retorno = "material";
+			break;
+		}
+
+		System.out.println("Deseja alterar " + retorno + "? [1] para confirmar / [2] para cancelar");
 		System.out.print("-> ");
 		String cancelOrConfirm = scan.nextLine();
 

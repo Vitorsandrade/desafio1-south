@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -57,35 +56,25 @@ public class DataBase {
 			try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 				String line = br.readLine();
 				String[] data;
-				
+
 				while ((line = br.readLine()) != null) {
 					data = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-					
-					
-					BigDecimal profitMargin = new BigDecimal("45").divide(new BigDecimal("100"), RoundingMode.CEILING)
-							.add(new BigDecimal("1"));
 
-					BigDecimal tax = new BigDecimal(data[7].replace(",", ".").replace("\"", ""))
-							.divide(new BigDecimal("100"), RoundingMode.CEILING).add(new BigDecimal("1"));
+					BigDecimal price = new BigDecimal(data[6].replace(",", ".").replace("\"", ""));
 
-					BigDecimal price = new BigDecimal(data[6].replace(",", ".").replace("\"", "")).multiply(tax)
-							.multiply(profitMargin).setScale(2, RoundingMode.CEILING);
-
-					boolean registerItem = true;
-
-					if (registerItem) {
+					boolean ok = true;
+					if (ok) {
 						ProductService.saveModel(data[3], price, Integer.parseInt(data[12]), data[5], data[1], data[0],
 								data[10], data[4], data[11]);
 					}
 
 				}
-				System.out.println("\nPRODUTOS ADICIONADOS COM SUCESSO!");	
-	
+				System.out.println("\nPRODUTOS ADICIONADOS COM SUCESSO!");
 
 				option = true;
 
 			} catch (Exception e) {
-				System.out.println("ARQUIVO INVÁLIDO!\nAdicione um arquivo existente!" );
+				System.out.println("ARQUIVO INVÁLIDO!\nAdicione um arquivo existente!");
 
 			}
 
@@ -98,7 +87,7 @@ public class DataBase {
 		String path = "src\\main\\resources\\storage.csv";
 
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
-			bw.write("código, código de barras, descrição, nome, categoria, preço, quantidade, cor, material");
+			bw.write("código, código de barras, nome, descrição, categoria, preço, quantidade, cor, material");
 			bw.newLine();
 			for (Product product : DataBase.instance().recovering().values()) {
 				bw.write(product.toStringFile());

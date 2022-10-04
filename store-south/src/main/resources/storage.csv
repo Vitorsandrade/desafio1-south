@@ -1,9 +1,9 @@
-código, código de barras, descrição, nome, categoria, preço, quantidade, cor, material
-7t0do00n,629936360072,"Livro sobre padrões de projeto de Erich Gamma, Ralph Johnson, Richard Helm e John Vlissides",Livro Design Patterns,ESCRITÓRIO,404.44,9,n/a,papel
-am45zbvz,809020331834,Camiseta comemoração 7 anos da South System,Camiseta South,VESTUÁRIO,140.84,76,preto,algodão
-heqti1q0,553100780294,"Máscara de proteção facial modelo PFFS, logo South System",Máscara PFF2 South,HIGIENE E SAÚDE,40.08,78,branco,pff2
+código, código de barras, nome, descrição, categoria, preço, quantidade, cor, material
+7t0do00n,629936360072,Livro Design Patterns,"Livro sobre padrões de projeto de Erich Gamma, Ralph Johnson, Richard Helm e John Vlissides",ESCRITÓRIO,101.11,9,n/a,papel
+am45zbvz,809020331834,Camiseta South,Camiseta comemoração 7 anos da South System,VESTUÁRIO,35.21,76,preto,algodão
+heqti1q0,553100780294,Máscara PFF2 South,"Máscara de proteção facial modelo PFFS, logo South System",HIGIENE E SAÚDE,10.02,78,branco,pff2
 00000000,000000000000,MODELO,MODELO,MODELO,0,0,MODELO,MODELO
-oh8u4qy2,651165685459,Café extra-forte para programadores,Café Solúvel South,ALIMENTAÇÃO E BEBIDAS,37.80,8,n/a,n/a
-hrcilce1,242717521829,Cerveja IPA comemoração South System,Cerveja Foguete South,ALIMENTAÇÃO E BEBIDAS,67.61,24,n/a,n/a
-iyu2uudy,932205549597,Patinete movido a mostruario_fabrica.csvbateria com logo South System,Patinete Elétrico South,MEIO DE TRANSPORTE,782.89,90,laranja,n/a
-t0n75ytr,945923371680,Teclado mecânico para jogos com luzes RGB,Teclado Gamer,ESCRITÓRIO,483.96,15,colorido,plástico
+oh8u4qy2,651165685459,Café Solúvel South,Café extra-forte para programadores,ALIMENTAÇÃO E BEBIDAS,9.45,8,n/a,n/a
+hrcilce1,242717521829,Cerveja Foguete South,Cerveja IPA comemoração South System,ALIMENTAÇÃO E BEBIDAS,28.17,24,n/a,n/a
+iyu2uudy,932205549597,Patinete Elétrico South,Patinete movido a mostruario_fabrica.csvbateria com logo South System,MEIO DE TRANSPORTE,301.11,90,laranja,n/a
+t0n75ytr,945923371680,Teclado Gamer,Teclado mecânico para jogos com luzes RGB,ESCRITÓRIO,120.99,15,colorido,plástico

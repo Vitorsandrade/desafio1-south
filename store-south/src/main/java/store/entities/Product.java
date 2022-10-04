@@ -138,7 +138,7 @@ public class Product {
 	}
 
 	public String toStringFile() {
-		return this.id + "," + this.barCode + "," + this.description + "," + this.name + "," + this.category + ","
+		return this.id + "," + this.barCode + "," + this.name + "," + this.description + "," + this.category + ","
 				+ this.price + "," + this.amount + "," + this.color + "," + this.material;
 	}
 

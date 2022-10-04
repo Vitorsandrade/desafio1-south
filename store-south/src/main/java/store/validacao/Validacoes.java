@@ -50,7 +50,7 @@ public class Validacoes {
 				valor = scan.nextLine();
 
 				while (valor.equals("")) {
-					System.out.println("Digite um valor válido.");
+					System.out.println("Informe um valor válido.");
 					System.out.println("Preço ");
 					System.out.print("-> ");
 					valor = scan.nextLine();

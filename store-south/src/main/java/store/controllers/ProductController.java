@@ -95,7 +95,7 @@ public class ProductController {
 				break;
 
 			case "5":
-				
+
 				DataBase.instance().getAll();
 
 				fim = 5;

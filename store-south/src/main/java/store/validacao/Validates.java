@@ -2,12 +2,13 @@ package store.validacao;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Validates {
 
-	public static Integer validarQuantidade() {
+	public static Integer validateAmount() {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 
@@ -38,7 +39,7 @@ public class Validates {
 		return temp;
 	}
 
-	public static BigDecimal validarPreco(String valor) {
+	public static BigDecimal validatePrice(String valor) {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		BigDecimal temp = null;
@@ -75,11 +76,12 @@ public class Validates {
 		return temp;
 	}
 
-	public static String validarData(LocalDate date) {
+	public static String validateDate(LocalDate date) {
 		if (date == null) {
 			return "n/a";
 		} else {
-			return date.getDayOfMonth() + "/" + date.getMonthValue() + "/" + date.getYear();
+
+		return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		}
 
 	}

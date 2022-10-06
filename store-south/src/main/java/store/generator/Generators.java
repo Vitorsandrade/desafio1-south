@@ -1,10 +1,10 @@
-package store.geradores;
+package store.generator;
 
 import java.util.Random;
 
-public class Geradores {
+public class Generators {
 
-	public static String gerarId() {
+	public static String generateId() {
 		String characters = "abcdefghijkmnopqrstuvwxyz023456789";
 		String randomString = "";
 		int length = 8;
@@ -25,7 +25,7 @@ public class Geradores {
 
 	}
 
-	public static String gerarCodBar() {
+	public static String generateCodBar() {
 
 		String characters = "0123456789";
 		String randomString = "";

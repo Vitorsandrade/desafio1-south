@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static store.validacao.Validates.validarData;;
+import static store.validacao.Validates.validateDate;;
 
 public class Product {
 
@@ -26,16 +26,19 @@ public class Product {
 
 	private String material;
 
-	LocalDate fabricationDate;
+	private LocalDate fabricationDate;
 
-	LocalDate dateValidity;
+	private LocalDate dateValidity;
+
+	private String serialNumber;
 
 	public Product() {
 
 	}
 
 	public Product(String id, String barCode, String description, String name, String category, BigDecimal price,
-			Integer amount, String color, String material, LocalDate fabricationDate, LocalDate dateValidity) {
+			Integer amount, String color, String material, LocalDate fabricationDate, LocalDate dateValidity,
+			String serialnumber) {
 		this.id = id;
 		this.barCode = barCode;
 		this.description = description;
@@ -47,6 +50,7 @@ public class Product {
 		this.material = material;
 		this.fabricationDate = fabricationDate;
 		this.dateValidity = dateValidity;
+		this.serialNumber = serialnumber;
 	}
 
 	public String getId() {
@@ -129,12 +133,20 @@ public class Product {
 		this.fabricationDate = fabricationDate;
 	}
 
-	public LocalDate getDateValdity() {
+	public LocalDate getDateValidity() {
 		return dateValidity;
 	}
 
-	public void setDateValdity(LocalDate dateValdity) {
-		this.dateValidity = dateValdity;
+	public void setDateValidity(LocalDate dateValidity) {
+		this.dateValidity = dateValidity;
+	}
+
+	public String getSerialnumber() {
+		return serialNumber;
+	}
+
+	public void setSerialnumber(String serialnumber) {
+		this.serialNumber = serialnumber;
 	}
 
 	@Override
@@ -156,18 +168,16 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "\nID PRODUTO: " + id + ",\n" + "CODIGO: " + barCode + ",\n" + "NOME: " + name + ",\n" + "DESCRIÇÃO: "
-				+ description + ",\n" + "CATEGORIA: " + category + ",\n" + "VALOR BRUTO: R$" + price + ",\n"
-				+ "QUANTIDADE: " + amount + ",\n" + "COR: " + color + ",\n" + "MATERIAL: " + material + ",\n"
-				+ "DATA DE FABRICAÇÃO: " + fabricationDate.getDayOfMonth() + "/" + fabricationDate.getMonthValue() + "/"
-				+ fabricationDate.getYear() + ",\n" + "DATA DE VÁLIDADE: " + validarData(dateValidity) + "\n";
+		return "\nID PRODUTO: " + id + ",\nCODIGO: " + barCode +  "\nSÉRIE: " + this.serialNumber + ",\nNOME: " + name + ",\nDESCRIÇÃO: " + description
+				+ ",\nCATEGORIA: " + category + ",\nVALOR: R$" + price + ",\nQUANTIDADE: " + amount + ",\nCOR: "
+				+ color + ",\nMATERIAL: " + material + ",\nDATA DE FABRICAÇÃO: " + validateDate(fabricationDate)
+				+ ",\nDATA DE VÁLIDADE: " + validateDate(dateValidity) + "\n";
 	}
 
 	public String toStringFile() {
-		return this.id + "," + this.barCode + "," + this.name + "," + this.description + "," + this.category + ","
-				+ this.price + "," + fabricationDate.getDayOfMonth() + "/" + fabricationDate.getMonthValue() + "/"
-				+ fabricationDate.getYear() + "," + validarData(dateValidity) + "," + this.color + ","
-				+ this.material + "," + this.amount;
+		return this.id + "," + this.barCode + "," + this.serialNumber + this.name + "," + this.description + "," + this.category + ","
+				+ this.price + "," + validateDate(fabricationDate) + "," + validateDate(dateValidity) + "," + this.color
+				+ "," + this.material + "," + this.amount + "," ;
 	}
 
 }

@@ -1,9 +1,3 @@
-código, código de barras, nome, descrição, categoria, valor bruto, data de fabricação, cor, material, quantidade
-7t0do00n,629936360072,Livro Design Patterns,"Livro sobre padrões de projeto de Erich Gamma, Ralph Johnson, Richard Helm e John Vlissides",ESCRITÓRIO,101.11,18/5/2016,n/a,n/a,papel,9
-am45zbvz,809020331834,Camiseta South,Camiseta comemoração 7 anos da South System,VESTUÁRIO,35.21,15/1/2021,n/a,preto,algodão,76
-heqti1q0,553100780294,Máscara PFF2 South,"Máscara de proteção facial modelo PFFS, logo South System",HIGIENE E SAÚDE,10.02,16/3/2021,n/a,branco,pff2,78
-00000000,000000000000,MODELO,MODELO,MODELO,0,6/10/2022,6/10/2022,MODELO,MODELO,0
-oh8u4qy2,651165685459,Café Solúvel South,Café extra-forte para programadores,ALIMENTAÇÃO E BEBIDAS,9.45,18/11/2019,18/11/2022,n/a,n/a,8
-hrcilce1,242717521829,Cerveja Foguete South,Cerveja IPA comemoração South System,ALIMENTAÇÃO E BEBIDAS,28.17,5/2/2021,19/8/2021,n/a,n/a,24
-iyu2uudy,932205549597,Patinete Elétrico South,Patinete movido a mostruario_fabrica.csvbateria com logo South System,MEIO DE TRANSPORTE,301.11,27/2/2020,n/a,laranja,n/a,90
-t0n75ytr,945923371680,Teclado Gamer,Teclado mecânico para jogos com luzes RGB,ESCRITÓRIO,120.99,23/12/2016,n/a,colorido,plástico,15
+código, código de barras, série, nome, descrição, categoria, valor bruto, data de fabricação, cor, material, quantidade
+00000000,000000000000,00/0000MODELO,MODELO,MODELO,0,06/10/2022,06/10/2022,MODELO,MODELO,0,
+r0xduass,161712080771,10/2022Mouse,fsdfgsdf,djksafhsd,345,06/10/2022,n/a,sdfsdf,sdfsdf,45,

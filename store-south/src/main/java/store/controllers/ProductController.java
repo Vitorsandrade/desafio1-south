@@ -61,7 +61,7 @@ public class ProductController {
 		Scanner scan = new Scanner(System.in);
 
 		ProductService.saveModel("MODELO", BigDecimal.ZERO, 0, "MODELO", "000000000000", "00000000", "MODELO", "MODELO",
-				"MODELO", LocalDate.now(), LocalDate.now());
+				"MODELO", LocalDate.now(), LocalDate.now(),"00/0000");
 
 		int fim = 0;
 

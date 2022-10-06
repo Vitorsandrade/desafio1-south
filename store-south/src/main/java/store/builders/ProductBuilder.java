@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import store.entities.Product;
-import store.geradores.Geradores;
+import store.generator.Generators;
 import store.services.DataBase;
 
 public class ProductBuilder {
@@ -22,6 +22,7 @@ public class ProductBuilder {
 	private String description;
 	private LocalDate fabricationDate;
 	private LocalDate dateValidity;
+	private String serialNumber;
 
 	public ProductBuilder(String name, String category, BigDecimal price, int amount) {
 		this.name = name;
@@ -65,6 +66,10 @@ public class ProductBuilder {
 		return this;
 	}
 
+	public ProductBuilder serialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+		return this;
+	}
 	public Product buildProduct() {
 		for (Product product : DataBase.instance().recovering().values()) {
 			if (!product.getId().equals(id)) {
@@ -72,17 +77,18 @@ public class ProductBuilder {
 			}
 		}
 
-		this.id = Geradores.gerarId();
-		this.barCode = Geradores.gerarCodBar();
+		this.id = Generators.generateId();
+		this.barCode = Generators.generateCodBar();
 		this.fabricationDate = LocalDate.now();
-		this.dateValidity = LocalDate.now();
+		this.dateValidity = null;
+		this.serialNumber = LocalDate.now().getMonth().getValue() +"/2022";
 		return new Product(id, barCode, description, name, category, price, amount, color, material, fabricationDate,
-				dateValidity);
+				dateValidity,serialNumber);
 	}
 
 	public Product buildProductModel() {
 		return new Product(id, barCode, description, name, category, price, amount, color, material, fabricationDate,
-				dateValidity);
+				dateValidity,serialNumber);
 	}
 
 }

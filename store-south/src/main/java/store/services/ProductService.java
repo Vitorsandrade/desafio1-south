@@ -1,7 +1,7 @@
 package store.services;
 
-import static store.validacao.Validates.validarPreco;
-import static store.validacao.Validates.validarQuantidade;
+import static store.validacao.Validates.validatePrice;
+import static store.validacao.Validates.validateAmount;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -73,9 +73,9 @@ public class ProductService {
 				System.out.print("-> ");
 				material = scan.nextLine();
 			}
-			BigDecimal price = validarPreco("");
+			BigDecimal price = validatePrice("");
 
-			Integer amount = validarQuantidade();
+			Integer amount = validateAmount();
 
 			if (cancelOrConfirm()) {
 				insertDataBase(name, price, amount, category, color, descrption, material);
@@ -139,12 +139,12 @@ public class ProductService {
 					break;
 
 				case "3":
-					BigDecimal newPrice = validarPreco("");
+					BigDecimal newPrice = validatePrice("");
 					product.setPrice(newPrice);
 					break;
 
 				case "4":
-					Integer newAmount = validarQuantidade();
+					Integer newAmount = validateAmount();
 					product.setAmount(newAmount);
 					break;
 
@@ -228,11 +228,11 @@ public class ProductService {
 
 	public static void saveModel(String name, BigDecimal price, Integer amount, String category, String codBar,
 			String id, String color, String description, String material, LocalDate fabricationDate,
-			LocalDate dateValidity) {
+			LocalDate dateValidity,String serialNumber) {
 		DataBase.instance()
 				.persistence(new ProductBuilder(name, category, price, amount).barCode(codBar).id(id).color(color)
 						.description(description).material(material).fabricationDate(fabricationDate)
-						.dateValidity(dateValidity).buildProductModel());
+						.dateValidity(dateValidity).serialNumber(serialNumber).buildProductModel());
 
 	}
 

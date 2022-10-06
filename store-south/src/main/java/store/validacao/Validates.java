@@ -13,17 +13,17 @@ public class Validates {
 		Scanner scan = new Scanner(System.in);
 
 		boolean option = true;
-		int temp = 0;
+		int amountTemp = 0;
 
 		do {
 			try {
 				System.out.println("Quantidade ");
 				System.out.print("-> ");
-				temp = scan.nextInt();
+				amountTemp = scan.nextInt();
 
 				option = false;
 
-				if (temp < 0) {
+				if (amountTemp < 0) {
 					throw new Exception();
 				}
 			} catch (InputMismatchException e) {
@@ -36,13 +36,13 @@ public class Validates {
 			}
 		} while (option);
 
-		return temp;
+		return amountTemp;
 	}
 
 	public static BigDecimal validatePrice(String valor) {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
-		BigDecimal temp = null;
+		BigDecimal priceTemp = null;
 		boolean option = true;
 
 		do {
@@ -58,9 +58,9 @@ public class Validates {
 					valor = scan.nextLine();
 				}
 
-				temp = new BigDecimal(valor.replace(",", "."));
+				priceTemp = new BigDecimal(valor.replace(",", "."));
 
-				if (temp.signum() < 0) {
+				if (priceTemp.signum() < 0) {
 					throw new Exception();
 				}
 				option = false;
@@ -73,7 +73,7 @@ public class Validates {
 			}
 		} while (option);
 
-		return temp;
+		return priceTemp;
 	}
 
 	public static String validateDate(LocalDate date) {
@@ -81,7 +81,7 @@ public class Validates {
 			return "n/a";
 		} else {
 
-		return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		}
 
 	}

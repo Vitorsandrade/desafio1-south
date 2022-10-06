@@ -70,6 +70,7 @@ public class ProductBuilder {
 		this.serialNumber = serialNumber;
 		return this;
 	}
+
 	public Product buildProduct() {
 		for (Product product : DataBase.instance().recovering().values()) {
 			if (!product.getId().equals(id)) {
@@ -81,14 +82,14 @@ public class ProductBuilder {
 		this.barCode = Generators.generateCodBar();
 		this.fabricationDate = LocalDate.now();
 		this.dateValidity = null;
-		this.serialNumber = LocalDate.now().getMonth().getValue() +"/2022";
+		this.serialNumber = LocalDate.now().getMonth().getValue() + "/2022";
 		return new Product(id, barCode, description, name, category, price, amount, color, material, fabricationDate,
-				dateValidity,serialNumber);
+				dateValidity, serialNumber);
 	}
 
 	public Product buildProductModel() {
 		return new Product(id, barCode, description, name, category, price, amount, color, material, fabricationDate,
-				dateValidity,serialNumber);
+				dateValidity, serialNumber);
 	}
 
 }

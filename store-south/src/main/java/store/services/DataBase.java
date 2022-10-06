@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -62,16 +63,26 @@ public class DataBase {
 				while ((line = br.readLine()) != null) {
 					data = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 
-					BigDecimal price = new BigDecimal(data[6].replace(",", ".").replace("\"", ""));
+					BigDecimal profitMargin = new BigDecimal("45").divide(new BigDecimal("100"))
+							.add(new BigDecimal("1"));
+					
+					BigDecimal tax = new BigDecimal(data[7].replace(",", ".").replace("\"", ""))
+							.divide(new BigDecimal("100")).add(new BigDecimal("1"));
+
+					BigDecimal price = new BigDecimal(data[6].replace(",", ".").replace("\"", "")).multiply(tax)
+							.multiply(profitMargin).setScale(2, RoundingMode.CEILING);
 
 					DateTimeFormatter fmt1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-					LocalDate date = LocalDate.parse(data[8], fmt1);
 					
+					LocalDate date = LocalDate.parse(data[8], fmt1);
+
 					LocalDate dateValidity = null;
 
 					if (!data[9].equals("n/a")) {
 						dateValidity = LocalDate.parse(data[9], fmt1);
 					}
+					
+			
 
 					boolean ok = true;
 

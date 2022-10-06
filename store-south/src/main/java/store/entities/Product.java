@@ -168,16 +168,17 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "\nID PRODUTO: " + id + ",\nCODIGO: " + barCode +  "\nSÉRIE: " + this.serialNumber + ",\nNOME: " + name + ",\nDESCRIÇÃO: " + description
-				+ ",\nCATEGORIA: " + category + ",\nVALOR: R$" + price + ",\nQUANTIDADE: " + amount + ",\nCOR: "
-				+ color + ",\nMATERIAL: " + material + ",\nDATA DE FABRICAÇÃO: " + validateDate(fabricationDate)
-				+ ",\nDATA DE VÁLIDADE: " + validateDate(dateValidity) + "\n";
+		return "\nID PRODUTO: " + id + ",\nCODIGO: " + barCode + "\nSÉRIE: " + this.serialNumber + ",\nNOME: " + name
+				+ ",\nDESCRIÇÃO: " + description + ",\nCATEGORIA: " + category + ",\nVALOR: R$" + price
+				+ ",\nQUANTIDADE: " + amount + ",\nCOR: " + color + ",\nMATERIAL: " + material
+				+ ",\nDATA DE FABRICAÇÃO: " + validateDate(fabricationDate) + ",\nDATA DE VÁLIDADE: "
+				+ validateDate(dateValidity) + "\n";
 	}
 
 	public String toStringFile() {
-		return this.id + "," + this.barCode + "," + this.serialNumber + this.name + "," + this.description + "," + this.category + ","
-				+ this.price + "," + validateDate(fabricationDate) + "," + validateDate(dateValidity) + "," + this.color
-				+ "," + this.material + "," + this.amount + "," ;
+		return this.id + "," + this.barCode + "," + this.serialNumber + this.name + "," + this.description + ","
+				+ this.category + "," + this.price + "," + validateDate(fabricationDate) + ","
+				+ validateDate(dateValidity) + "," + this.color + "," + this.material + "," + this.amount + ",";
 	}
 
 }

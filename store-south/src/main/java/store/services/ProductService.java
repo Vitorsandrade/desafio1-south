@@ -228,7 +228,7 @@ public class ProductService {
 
 	public static void saveModel(String name, BigDecimal price, Integer amount, String category, String codBar,
 			String id, String color, String description, String material, LocalDate fabricationDate,
-			LocalDate dateValidity,String serialNumber) {
+			LocalDate dateValidity, String serialNumber) {
 		DataBase.instance()
 				.persistence(new ProductBuilder(name, category, price, amount).barCode(codBar).id(id).color(color)
 						.description(description).material(material).fabricationDate(fabricationDate)

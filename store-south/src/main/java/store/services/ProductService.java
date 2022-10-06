@@ -1,9 +1,10 @@
 package store.services;
 
-import static store.validacao.Validacoes.validarPreco;
-import static store.validacao.Validacoes.validarQuantidade;
+import static store.validacao.Validates.validarPreco;
+import static store.validacao.Validates.validarQuantidade;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -20,7 +21,6 @@ public class ProductService {
 	}
 
 	public static void postProduct() {
-
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 
@@ -227,9 +227,10 @@ public class ProductService {
 	}
 
 	public static void saveModel(String name, BigDecimal price, Integer amount, String category, String codBar,
-			String id, String color, String description, String material) {
-		DataBase.instance().persistence(new ProductBuilder(name, category, price, amount).barCode(codBar).id(id)
-				.color(color).description(description).material(material).buildProductModel());
+			String id, String color, String description, String material, LocalDate fabricationDate) {
+		DataBase.instance().persistence(new ProductBuilder(name, category, price, amount)
+				.barCode(codBar).id(id).color(color).description(description).material(material)
+				.fabricationDate(fabricationDate).buildProductModel());
 
 	}
 

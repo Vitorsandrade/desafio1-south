@@ -1,6 +1,7 @@
 package store.builders;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import store.entities.Product;
 import store.geradores.Geradores;
@@ -19,6 +20,7 @@ public class ProductBuilder {
 	private String color;
 	private String material;
 	private String description;
+	private LocalDate fabricationDate;
 
 	public ProductBuilder(String name, String category, BigDecimal price, int amount) {
 		this.name = name;
@@ -39,6 +41,11 @@ public class ProductBuilder {
 
 	public ProductBuilder description(String description) {
 		this.description = description;
+		return this;
+	}
+	
+	public ProductBuilder fabricationDate(LocalDate fabricationDate) {
+		this.fabricationDate = fabricationDate;
 		return this;
 	}
 
@@ -62,11 +69,11 @@ public class ProductBuilder {
 		this.id = Geradores.gerarId();
 		this.barCode = Geradores.gerarCodBar();
 
-		return new Product(id, barCode, description, name, category, price, amount, color, material);
+		return new Product(id, barCode, description, name, category, price, amount, color, material,fabricationDate);
 	}
 
 	public Product buildProductModel() {
-		return new Product(id, barCode, description, name, category, price, amount, color, material);
+		return new Product(id, barCode, description, name, category, price, amount, color, material, fabricationDate);
 	}
 
 }

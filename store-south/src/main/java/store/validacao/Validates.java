@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Validacoes {
+public class Validates {
 
 	public static Integer validarQuantidade() {
 		@SuppressWarnings("resource")

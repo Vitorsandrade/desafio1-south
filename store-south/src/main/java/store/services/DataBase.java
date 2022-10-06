@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -62,10 +64,13 @@ public class DataBase {
 
 					BigDecimal price = new BigDecimal(data[6].replace(",", ".").replace("\"", ""));
 
+					DateTimeFormatter fmt1 = DateTimeFormatter.ofPattern("dd/MM/yyy");
+					LocalDate date = LocalDate.parse(data[8], fmt1);
+
 					boolean ok = true;
 					if (ok) {
 						ProductService.saveModel(data[3], price, Integer.parseInt(data[12]), data[5], data[1], data[0],
-								data[10], data[4], data[11]);
+								data[10], data[4], data[11], date);
 					}
 
 				}
@@ -75,6 +80,7 @@ public class DataBase {
 
 			} catch (Exception e) {
 				System.out.println("ARQUIVO INVÁLIDO!\nAdicione um arquivo existente!");
+				e.printStackTrace();
 
 			}
 

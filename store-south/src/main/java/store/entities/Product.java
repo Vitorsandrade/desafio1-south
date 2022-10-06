@@ -1,6 +1,7 @@
 package store.entities;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Product {
@@ -23,13 +24,14 @@ public class Product {
 
 	private String material;
 
+	LocalDate fabricationDate;
+
 	public Product() {
 
 	}
 
 	public Product(String id, String barCode, String description, String name, String category, BigDecimal price,
-			Integer amount, String color, String material) {
-		super();
+			Integer amount, String color, String material, LocalDate fabricationDate) {
 		this.id = id;
 		this.barCode = barCode;
 		this.description = description;
@@ -39,6 +41,7 @@ public class Product {
 		this.amount = amount;
 		this.color = color;
 		this.material = material;
+		this.fabricationDate = fabricationDate;
 	}
 
 	public String getId() {
@@ -113,6 +116,14 @@ public class Product {
 		this.material = material;
 	}
 
+	public LocalDate getFabricationDate() {
+		return fabricationDate;
+	}
+
+	public void setFabricationDate(LocalDate fabricationDate) {
+		this.fabricationDate = fabricationDate;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -134,12 +145,15 @@ public class Product {
 	public String toString() {
 		return "\nID PRODUTO: " + id + ",\n" + "CODIGO: " + barCode + ",\n" + "NOME: " + name + ",\n" + "DESCRIÇÃO: "
 				+ description + ",\n" + "CATEGORIA: " + category + ",\n" + "PREÇO: R$" + price + ",\n" + "QUANTIDADE: "
-				+ amount + ",\n" + "COR: " + color + ",\n" + "MATERIAL: " + material + "\n";
+				+ amount + ",\n" + "COR: " + color + ",\n" + "MATERIAL: " + material + ",\n" + "DATA DE FABRICAÇÃO: "
+				+ fabricationDate.getDayOfMonth() + "/" + fabricationDate.getMonthValue() + "/"
+				+ fabricationDate.getYear() + "\n";
 	}
 
 	public String toStringFile() {
 		return this.id + "," + this.barCode + "," + this.name + "," + this.description + "," + this.category + ","
-				+ this.price + "," + this.amount + "," + this.color + "," + this.material;
+				+ this.price + "," + fabricationDate.getDayOfMonth() + "/" + fabricationDate.getMonthValue() + "/"
+				+ fabricationDate.getYear() + "," + this.amount + "," + this.color + "," + this.material;
 	}
 
 }

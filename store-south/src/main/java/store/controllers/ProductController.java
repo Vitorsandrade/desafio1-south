@@ -2,6 +2,7 @@ package store.controllers;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -60,7 +61,7 @@ public class ProductController {
 		Scanner scan = new Scanner(System.in);
 
 		ProductService.saveModel("MODELO", BigDecimal.ZERO, 0, "MODELO", "000000000000", "00000000", "MODELO", "MODELO",
-				"MODELO");
+				"MODELO",LocalDate.now());
 
 		int fim = 0;
 

@@ -21,6 +21,7 @@ public class ProductBuilder {
 	private String material;
 	private String description;
 	private LocalDate fabricationDate;
+	private LocalDate dateValidity;
 
 	public ProductBuilder(String name, String category, BigDecimal price, int amount) {
 		this.name = name;
@@ -43,9 +44,14 @@ public class ProductBuilder {
 		this.description = description;
 		return this;
 	}
-	
+
 	public ProductBuilder fabricationDate(LocalDate fabricationDate) {
 		this.fabricationDate = fabricationDate;
+		return this;
+	}
+
+	public ProductBuilder dateValidity(LocalDate dateValidity) {
+		this.dateValidity = dateValidity;
 		return this;
 	}
 
@@ -68,12 +74,15 @@ public class ProductBuilder {
 
 		this.id = Geradores.gerarId();
 		this.barCode = Geradores.gerarCodBar();
-
-		return new Product(id, barCode, description, name, category, price, amount, color, material,fabricationDate);
+		this.fabricationDate = LocalDate.now();
+		this.dateValidity = LocalDate.now();
+		return new Product(id, barCode, description, name, category, price, amount, color, material, fabricationDate,
+				dateValidity);
 	}
 
 	public Product buildProductModel() {
-		return new Product(id, barCode, description, name, category, price, amount, color, material, fabricationDate);
+		return new Product(id, barCode, description, name, category, price, amount, color, material, fabricationDate,
+				dateValidity);
 	}
 
 }

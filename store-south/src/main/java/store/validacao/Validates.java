@@ -1,6 +1,7 @@
 package store.validacao;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -74,4 +75,12 @@ public class Validates {
 		return temp;
 	}
 
+	public static String validarData(LocalDate date) {
+		if (date == null) {
+			return "n/a";
+		} else {
+			return date.getDayOfMonth() + "/" + date.getMonthValue() + "/" + date.getYear();
+		}
+
+	}
 }

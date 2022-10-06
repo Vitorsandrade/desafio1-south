@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static store.validacao.Validates.validarData;;
+
 public class Product {
 
 	private String id;
@@ -26,12 +28,14 @@ public class Product {
 
 	LocalDate fabricationDate;
 
+	LocalDate dateValidity;
+
 	public Product() {
 
 	}
 
 	public Product(String id, String barCode, String description, String name, String category, BigDecimal price,
-			Integer amount, String color, String material, LocalDate fabricationDate) {
+			Integer amount, String color, String material, LocalDate fabricationDate, LocalDate dateValidity) {
 		this.id = id;
 		this.barCode = barCode;
 		this.description = description;
@@ -42,6 +46,7 @@ public class Product {
 		this.color = color;
 		this.material = material;
 		this.fabricationDate = fabricationDate;
+		this.dateValidity = dateValidity;
 	}
 
 	public String getId() {
@@ -124,6 +129,14 @@ public class Product {
 		this.fabricationDate = fabricationDate;
 	}
 
+	public LocalDate getDateValdity() {
+		return dateValidity;
+	}
+
+	public void setDateValdity(LocalDate dateValdity) {
+		this.dateValidity = dateValdity;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -144,16 +157,17 @@ public class Product {
 	@Override
 	public String toString() {
 		return "\nID PRODUTO: " + id + ",\n" + "CODIGO: " + barCode + ",\n" + "NOME: " + name + ",\n" + "DESCRIÇÃO: "
-				+ description + ",\n" + "CATEGORIA: " + category + ",\n" + "PREÇO: R$" + price + ",\n" + "QUANTIDADE: "
-				+ amount + ",\n" + "COR: " + color + ",\n" + "MATERIAL: " + material + ",\n" + "DATA DE FABRICAÇÃO: "
-				+ fabricationDate.getDayOfMonth() + "/" + fabricationDate.getMonthValue() + "/"
-				+ fabricationDate.getYear() + "\n";
+				+ description + ",\n" + "CATEGORIA: " + category + ",\n" + "VALOR BRUTO: R$" + price + ",\n"
+				+ "QUANTIDADE: " + amount + ",\n" + "COR: " + color + ",\n" + "MATERIAL: " + material + ",\n"
+				+ "DATA DE FABRICAÇÃO: " + fabricationDate.getDayOfMonth() + "/" + fabricationDate.getMonthValue() + "/"
+				+ fabricationDate.getYear() + ",\n" + "DATA DE VÁLIDADE: " + validarData(dateValidity) + "\n";
 	}
 
 	public String toStringFile() {
 		return this.id + "," + this.barCode + "," + this.name + "," + this.description + "," + this.category + ","
 				+ this.price + "," + fabricationDate.getDayOfMonth() + "/" + fabricationDate.getMonthValue() + "/"
-				+ fabricationDate.getYear() + "," + this.amount + "," + this.color + "," + this.material;
+				+ fabricationDate.getYear() + "," + validarData(dateValidity) + "," + this.color + ","
+				+ this.material + "," + this.amount;
 	}
 
 }

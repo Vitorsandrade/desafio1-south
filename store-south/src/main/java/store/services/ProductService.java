@@ -227,10 +227,12 @@ public class ProductService {
 	}
 
 	public static void saveModel(String name, BigDecimal price, Integer amount, String category, String codBar,
-			String id, String color, String description, String material, LocalDate fabricationDate) {
-		DataBase.instance().persistence(new ProductBuilder(name, category, price, amount)
-				.barCode(codBar).id(id).color(color).description(description).material(material)
-				.fabricationDate(fabricationDate).buildProductModel());
+			String id, String color, String description, String material, LocalDate fabricationDate,
+			LocalDate dateValidity) {
+		DataBase.instance()
+				.persistence(new ProductBuilder(name, category, price, amount).barCode(codBar).id(id).color(color)
+						.description(description).material(material).fabricationDate(fabricationDate)
+						.dateValidity(dateValidity).buildProductModel());
 
 	}
 
@@ -246,7 +248,7 @@ public class ProductService {
 
 		while (!check) {
 			System.out.println("OPERAÇÃO INVÁLIDA!");
-			System.out.print("[1] para confirmar / [2] para cancelar");
+			System.out.println("[1] para confirmar / [2] para cancelar");
 			System.out.print("-> ");
 			cancelOrConfirm = scan.nextLine();
 

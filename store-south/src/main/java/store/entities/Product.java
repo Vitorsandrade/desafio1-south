@@ -1,10 +1,10 @@
 package store.entities;
 
+import static store.validations.Validates.validateDate;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
-
-import static store.validacao.Validates.validateDate;;
+import java.util.Objects;;
 
 public class Product {
 

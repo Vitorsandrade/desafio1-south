@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -65,7 +66,7 @@ public class DataBase {
 
 					BigDecimal profitMargin = new BigDecimal("45").divide(new BigDecimal("100"))
 							.add(new BigDecimal("1"));
-					
+
 					BigDecimal tax = new BigDecimal(data[7].replace(",", ".").replace("\"", ""))
 							.divide(new BigDecimal("100")).add(new BigDecimal("1"));
 
@@ -73,7 +74,7 @@ public class DataBase {
 							.multiply(profitMargin).setScale(2, RoundingMode.CEILING);
 
 					DateTimeFormatter fmt1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-					
+
 					LocalDate date = LocalDate.parse(data[8], fmt1);
 
 					LocalDate dateValidity = null;
@@ -81,8 +82,6 @@ public class DataBase {
 					if (!data[9].equals("n/a")) {
 						dateValidity = LocalDate.parse(data[9], fmt1);
 					}
-					
-			
 
 					boolean ok = true;
 
@@ -99,8 +98,6 @@ public class DataBase {
 
 			} catch (Exception e) {
 				System.out.println("ARQUIVO INVÁLIDO!\nAdicione um arquivo existente!");
-				e.printStackTrace();
-
 			}
 
 			DataBase.instance().saveOnFile();
@@ -119,7 +116,7 @@ public class DataBase {
 				bw.write(product.toStringFile());
 				bw.newLine();
 			}
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

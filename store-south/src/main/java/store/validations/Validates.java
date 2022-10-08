@@ -1,10 +1,12 @@
-package store.validacao;
+package store.validations;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import store.exceptions.NumberMustBePositiveException;
 
 public class Validates {
 
@@ -24,14 +26,13 @@ public class Validates {
 				option = false;
 
 				if (amountTemp < 0) {
-					throw new Exception();
+					throw new NumberMustBePositiveException();
 				}
 			} catch (InputMismatchException e) {
-				System.out.println("INSIRA NÚMEROS POSITIVOS!");
+				System.out.println("INSIRA APENAS NÚMEROS E SEM CASAS DECIMAIS! ex: 0,0 ou 0.0");
 				scan.nextLine();
 
-			} catch (Exception e) {
-				System.out.println("INSIRA NÚMEROS POSITIVOS!");
+			} catch (NumberMustBePositiveException e) {
 				option = true;
 			}
 		} while (option);
@@ -61,14 +62,13 @@ public class Validates {
 				priceTemp = new BigDecimal(valor.replace(",", "."));
 
 				if (priceTemp.signum() < 0) {
-					throw new Exception();
+					throw new NumberMustBePositiveException();
 				}
 				option = false;
 			} catch (NumberFormatException e) {
 				System.out.println("INSIRA APENAS VALORES NÚMERICOS PARA O PREÇO! ");
 
-			} catch (Exception e) {
-				System.out.println("VALOR DO PRODUTO DEVE SER POSITIVO! ");
+			} catch (NumberMustBePositiveException e) {
 				option = true;
 			}
 		} while (option);

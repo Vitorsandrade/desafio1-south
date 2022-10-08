@@ -1,7 +1,7 @@
 package store.services;
 
-import static store.validacao.Validates.validatePrice;
-import static store.validacao.Validates.validateAmount;
+import static store.validations.Validates.validateAmount;
+import static store.validations.Validates.validatePrice;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

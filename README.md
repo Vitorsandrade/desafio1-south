@@ -1,5 +1,5 @@
 <div style="display: inline_block"><br>
-  <img align="center" alt="Vitor-Java" height="100" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg">
+  <img align="center" alt="Vitor-Java" height="50" width="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg">
     <h1>
    		 South Store
     </h1>

@@ -1,9 +1,10 @@
-<div style="display: inline_block"><br>
-  <img align="center" alt="Vitor-Java" height="50" width="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg">
+<div ><br>
+  <img align="center" alt="Vitor-Java" height="80" width="80" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg">
     <h1>
    		 South Store
     </h1>
 </div>
+
 
 
 
@@ -20,15 +21,32 @@ Programa criado para o armazenamento e manipulação dos Produtos da loja, o pro
 
 ##### Ex:     
 
-![](C:\Users\vitor\OneDrive\Área de Trabalho\logo.png)
+​                                                                        Inicio do programa: 08/10/22 14:00
+
+                                ************** South Store **************
 
 
 
 #### Logo abaixo será exibido o menu do programa, aguardando a opção de escolha do usuário. 
 
-##### Ex: 
+##### Ex:
 
-![](C:\Users\vitor\OneDrive\Área de Trabalho\menuo.png)
+----------------------------------------------------------------------------------
+
+​		                                                         |DIGITE O NÚMERO DA OPÇÃO QUE DESEJA |
+
+----------------------------------------------------------------------------------------
+
+​                                                                 |                     1 - Registrar produto              	  |
+​																 |            		 2 - Editar produto                 	    |
+​																 |            		 3 - Excluir produto              	      |
+​																 |            		 4 - Importar produtos             	 |
+​																 |            		 5 - Listar produtos                	    |
+​																 |            		 6 - Sair                                             |
+
+-----------------------------------------
+
+->
 
 
 
@@ -66,7 +84,18 @@ Quantidade(Não aceita passar em branco, Não aceita valores negativos e só ace
 
 ##### Ex:
 
-![](C:\Users\vitor\OneDrive\Área de Trabalho\edit.png)
+-------------------------------------
+
+​																Qual dado quer modificar:
+​																 [1]NOME
+​																 [2]CATEGORIA
+ 																[3]PREÇO
+​																 [4]QUANTIDADE
+ 																[5]DESCRIÇÃO
+ 																[6]COR
+ 																[7]MATERIAL
+
+------------------------------------------
 
 
 
@@ -90,7 +119,14 @@ Quantidade(Não aceita passar em branco, Não aceita valores negativos e só ace
 
 ##### Ex:
 
-![](C:\Users\vitor\OneDrive\Área de Trabalho\importo.png)
+---------------------------------
+
+​															Digite o endereço do arquivo a ser importado 
+​															->  src/main/resources/mostruario_fabrica.csv
+
+---------------------------------
+
+
 
 ##### Caso usuário digite o caminho do arquivo errado será exibido a mensagem: ARQUIVO INVÁLIDO! e será solicitado mais uma vez o caminho do arquivo.
 
@@ -110,7 +146,11 @@ Quantidade(Não aceita passar em branco, Não aceita valores negativos e só ace
 
 ##### Ex:
 
-![](C:\Users\vitor\OneDrive\Área de Trabalho\encer.png)
+​                                                                Fim do programa: 08/10/22 14:24
+
+                            ************** South Store **************
+
+
 
 
 

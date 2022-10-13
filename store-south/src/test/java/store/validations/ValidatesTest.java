@@ -1,32 +1,51 @@
 package store.validations;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
 class ValidatesTest {
 
 	@Test
-	void testValidateAmount() {
-		int amount = Validates.validateAmount();
-		assertEquals(1, amount);
+	public void testNullDateInput() {
+		String test = Validates.validateDate(null);
+		assertEquals("n/a", test);
 	}
 
 	@Test
-	void testValidatePrice() {
-		BigDecimal price = Validates.validatePrice("1");
-		assertEquals(BigDecimal.ONE, price);
+	public void testValidDateInput() {
+		LocalDate date = LocalDate.now();
+		String test = Validates.validateDate(date);
+
+		assertEquals(date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), test);
 	}
 
 	@Test
-	public void pegarDadosProdutos() {
-		
+	public void testIfItReceivesPositiveValueOrZeroReturnsTrueOfTheValidateAmount() {
+		Boolean test = ValidatesFake.validateAmount(1);
+		assertTrue(test);
 	}
-//	@Test
-//	void testValidateDate() {
-//		fail("Not yet implemented");
-//	}
 
+	@Test
+	public void testIfItReceivesNegativeValueReturnsFalseOfTheValidateAmount() {
+		Boolean test = ValidatesFake.validateAmount(-1);
+		assertFalse(test);
+	}
+
+	@Test
+	public void testIfItReceivesPositiveValueOrZeroReturnsTrueOfTheValidatePrice() {
+		Boolean test = ValidatesFake.validatePrice("1");
+		assertTrue(test);
+	}
+
+	@Test
+	public void testIfItReceivesNegativeValueReturnsFalseOfTheValidatePrice() {
+		Boolean test = ValidatesFake.validatePrice("-1");
+		assertFalse(test);
+	}
 }

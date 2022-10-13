@@ -83,7 +83,7 @@ public class ProductService {
 				System.out.println("\nPRODUTO ADICIONADO COM SUCESSO!\n");
 
 			} else {
-				System.out.println("OPERAÇÃO CANCELADA!");
+				System.out.println("\nOPERAÇÃO CANCELADA!\n");
 			}
 		}
 		DataBase.instance().saveOnFile();
@@ -92,7 +92,7 @@ public class ProductService {
 
 	public static void putProduct() {
 
-		if (products.size() >= 2) {
+		if (products.size() > 1) {
 			DataBase.instance().getAll();
 		}
 
@@ -100,7 +100,7 @@ public class ProductService {
 		System.out.println("|                     Edição                      |");
 		System.out.println("---------------------------------------------------");
 
-		if (products.size() >= 2) {
+		if (products.size() > 1) {
 
 			@SuppressWarnings("resource")
 			Scanner scan = new Scanner(System.in);
@@ -184,22 +184,23 @@ public class ProductService {
 	}
 
 	public static void deleteProduct() {
-		if (products.size() >= 2) {
+		if (products.size() > 1) {
 			DataBase.instance().getAll();
-			Product product = searchProduct();
-
+			
 			System.out.println("\n---------------------------------------------------");
 			System.out.println("|                    Exclusão                     |");
 			System.out.println("---------------------------------------------------");
+			
+			Product product = searchProduct();
 
 			if (cancelOrConfirm()) {
 				DataBase.instance().deleteProduct(product);
-				System.out.println("PRODUTO EXCLUIDO COM SUCESSO!");
+				System.out.println("\nPRODUTO EXCLUIDO COM SUCESSO!\n");
 			} else {
-				System.out.println("OPERAÇÃO CANCELADA!");
+				System.out.println("\nOPERAÇÃO CANCELADA!\n");
 			}
 		} else {
-			System.out.println("PRIMEIRO PREENCHA A LISTA DE PRODUTOS!");
+			System.out.println("\nPRIMEIRO PREENCHA A LISTA DE PRODUTOS!\n");
 		}
 		DataBase.instance().saveOnFile();
 	}
@@ -214,7 +215,7 @@ public class ProductService {
 			}
 
 		} else {
-			System.out.println("Operação cancelada");
+			System.out.println("\nOPERAÇÃO CANCELADA!\n");
 		}
 		DataBase.instance().getAll();
 	}
@@ -226,7 +227,7 @@ public class ProductService {
 
 	}
 
-	public static void saveModel(String name, BigDecimal price, Integer amount, String category, String codBar,
+	public static void insertDataBase(String name, BigDecimal price, Integer amount, String category, String codBar,
 			String id, String color, String description, String material, LocalDate fabricationDate,
 			LocalDate dateValidity, String serialNumber) {
 		DataBase.instance()
@@ -266,39 +267,39 @@ public class ProductService {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 
-		String retorno = "";
+		String returnOption = "";
 		switch (option) {
 		case "1":
-			retorno = "nome";
+			returnOption = "nome";
 			break;
 		case "2":
-			retorno = "categoria";
+			returnOption = "categoria";
 			break;
 		case "3":
-			retorno = "preço";
+			returnOption = "preço";
 			break;
 		case "4":
-			retorno = "quantidade";
+			returnOption = "quantidade";
 			break;
 		case "5":
-			retorno = "descrição";
+			returnOption = "descrição";
 			break;
 		case "6":
-			retorno = "cor";
+			returnOption = "cor";
 			break;
 		default:
-			retorno = "material";
+			returnOption = "material";
 			break;
 		}
 
-		System.out.println("Deseja alterar " + retorno + "? [1] para confirmar / [2] para cancelar");
+		System.out.println("Deseja alterar " + returnOption + "? [1] para confirmar / [2] para cancelar");
 		System.out.print("-> ");
 		String cancelOrConfirm = scan.nextLine();
 
 		boolean check = cancelOrConfirm.equals("1") || cancelOrConfirm.equals("2");
 
 		while (!check) {
-			System.out.println("OPERAÇÃO INVÁLIDA!");
+			System.out.println("\nOPERAÇÃO INVÁLIDA!\n");
 			System.out.print("[1] para confirmar / [2] para cancelar");
 			System.out.print("-> ");
 			cancelOrConfirm = scan.nextLine();

@@ -176,9 +176,9 @@ public class Product {
 	}
 
 	public String toStringFile() {
-		return this.id + "," + this.barCode + "," + this.serialNumber + this.name + "," + this.description + ","
+		return this.id + "," + this.barCode + "," + this.serialNumber + "," + this.name + "," + this.description + ","
 				+ this.category + "," + this.price + "," + validateDate(fabricationDate) + ","
-				+ validateDate(dateValidity) + "," + this.color + "," + this.material + "," + this.amount + ",";
+				+ validateDate(dateValidity) + "," + this.color + "," + this.material + "," + this.amount;
 	}
 
 }

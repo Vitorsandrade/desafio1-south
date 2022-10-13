@@ -87,7 +87,7 @@ public class DataBase {
 
 					if (ok) {
 
-						ProductService.saveModel(data[3], price, Integer.parseInt(data[12]), data[5], data[1], data[0],
+						ProductService.insertDataBase(data[3], price, Integer.parseInt(data[12]), data[5], data[1], data[0],
 								data[10], data[4], data[11], date, dateValidity, data[2]);
 					}
 
@@ -110,7 +110,7 @@ public class DataBase {
 
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
 			bw.write(
-					"código, código de barras, série, nome, descrição, categoria, valor bruto, data de fabricação, cor, material, quantidade");
+					"codigo, codigo de barras, serie, nome, descricao, categoria, valor bruto, data de fabricacao, data de validade, cor, material, quantidade");
 			bw.newLine();
 			for (Product product : DataBase.instance().recovering().values()) {
 				bw.write(product.toStringFile());

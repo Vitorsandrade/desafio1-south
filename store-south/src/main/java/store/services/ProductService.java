@@ -4,6 +4,7 @@ import static store.validations.Validates.validateAmount;
 import static store.validations.Validates.validatePrice;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -186,11 +187,11 @@ public class ProductService {
 	public static void deleteProduct() {
 		if (products.size() > 1) {
 			DataBase.instance().getAll();
-			
+
 			System.out.println("\n---------------------------------------------------");
 			System.out.println("|                    Exclusão                     |");
 			System.out.println("---------------------------------------------------");
-			
+
 			Product product = searchProduct();
 
 			if (cancelOrConfirm()) {
@@ -336,6 +337,19 @@ public class ProductService {
 		System.out.println("\nPRODUTO VÁLIDO: \n" + productDataBase);
 
 		return productDataBase;
+	}
+
+	public static BigDecimal finalValue(String taxValue, String grossValue) {
+
+		BigDecimal profitMargin = new BigDecimal("45").divide(new BigDecimal("100")).add(new BigDecimal("1"));
+
+		BigDecimal tax = new BigDecimal(taxValue.replace(",", ".").replace("\"", "")).divide(new BigDecimal("100"))
+				.add(new BigDecimal("1"));
+
+		BigDecimal price = new BigDecimal(grossValue.replace(",", ".").replace("\"", "")).multiply(tax)
+				.multiply(profitMargin).setScale(2, RoundingMode.CEILING);
+
+		return price;
 	}
 
 }

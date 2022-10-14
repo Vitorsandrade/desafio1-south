@@ -1,10 +1,3 @@
-codigo, codigo de barras, serie, nome, descricao, categoria, valor bruto, data de fabricacao, cor, material, quantidade
-7t0do00n,629936360072,2/2016Livro Design Patterns,"Livro sobre padrões de projeto de Erich Gamma, Ralph Johnson, Richard Helm e John Vlissides",ESCRITÓRIO,183.27,18/05/2016,n/a,n/a,papel,9,
-am45zbvz,809020331834,1/2021Camiseta South,Camiseta comemoração 7 anos da South System,VESTUÁRIO,58.72,15/01/2021,n/a,preto,algodão,76,
-heqti1q0,553100780294,1/2020Máscara PFF2 South,"Máscara de proteção facial modelo PFFS, logo South System",HIGIENE E SAÚDE,15.26,16/03/2021,n/a,branco,pff2,78,
-00000000,000000000000,00/0000MODELO,MODELO,MODELO,0,13/10/2022,13/10/2022,MODELO,MODELO,0,
-oh8u4qy2,651165685459,4/2019Café Solúvel South,Café extra-forte para programadores,ALIMENTAÇÃO E BEBIDAS,15.08,18/11/2019,18/11/2022,n/a,n/a,8,
-hrcilce1,242717521829,1/2021Cerveja Foguete South,Cerveja IPA comemoração South System,ALIMENTAÇÃO E BEBIDAS,46.00,05/02/2021,19/08/2021,n/a,n/a,24,
-iyu2uudy,932205549597,1/2020Patinete Elétrico South,Patinete movido a mostruario_fabrica.csvbateria com logo South System,MEIO DE TRANSPORTE,524.81,27/02/2020,n/a,laranja,n/a,90,
-pvdn4bkr,455083189897,10/2022MousePad,dsfsd,Tecnolgia,9,13/10/2022,n/a,fdsfsd,fsdfsdf,9,
-t0n75ytr,945923371680,1/2017Teclado Gamer,Teclado mecânico para jogos com luzes RGB,ESCRITÓRIO,199.90,23/12/2016,n/a,colorido,plástico,15,
+codigo, codigo de barras, serie, nome, descricao, categoria, valor bruto, data de fabricacao, data de validade, cor, material, quantidade
+ug8fsn8g,483893283224,10/2022,Teclado,Novo,Tecnologia,99.90,14/10/2022,n/a,Preto,Plástico,10
+00000000,000000000000,00/0000,MODELO,MODELO,MODELO,0,14/10/2022,14/10/2022,MODELO,MODELO,0

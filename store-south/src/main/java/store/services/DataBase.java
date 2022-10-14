@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -64,14 +63,7 @@ public class DataBase {
 				while ((line = br.readLine()) != null) {
 					data = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 
-					BigDecimal profitMargin = new BigDecimal("45").divide(new BigDecimal("100"))
-							.add(new BigDecimal("1"));
-
-					BigDecimal tax = new BigDecimal(data[7].replace(",", ".").replace("\"", ""))
-							.divide(new BigDecimal("100")).add(new BigDecimal("1"));
-
-					BigDecimal price = new BigDecimal(data[6].replace(",", ".").replace("\"", "")).multiply(tax)
-							.multiply(profitMargin).setScale(2, RoundingMode.CEILING);
+					BigDecimal price = ProductService.finalValue(data[7], data[6]);
 
 					DateTimeFormatter fmt1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -87,8 +79,8 @@ public class DataBase {
 
 					if (ok) {
 
-						ProductService.insertDataBase(data[3], price, Integer.parseInt(data[12]), data[5], data[1], data[0],
-								data[10], data[4], data[11], date, dateValidity, data[2]);
+						ProductService.insertDataBase(data[3], price, Integer.parseInt(data[12]), data[5], data[1],
+								data[0], data[10], data[4], data[11], date, dateValidity, data[2]);
 					}
 
 				}
@@ -119,5 +111,42 @@ public class DataBase {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+
+	public Map<String, Product> persistFileData() {
+		String path = "src/main/resources/storage.csv";
+
+
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+			String line = br.readLine();
+			String data[];
+
+			while ((line = br.readLine()) != null) {
+				data = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+
+				DateTimeFormatter fmt1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+				LocalDate dateFabrication = LocalDate.parse(data[7], fmt1);
+
+				LocalDate dateValidity = null;
+
+				if (!data[8].equals("n/a")) {
+					dateValidity = LocalDate.parse(data[8], fmt1);
+				}
+
+				BigDecimal price = new BigDecimal(data[6].replace(",", ".").replace("\"", ""));
+
+				Product product = new Product(data[0], data[1], data[4], data[3], data[5], price,
+						Integer.parseInt(data[11]), data[9], data[10], dateFabrication, dateValidity, data[2]);
+
+				products.put(product.getId(), product);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return products;
+
 	}
 }

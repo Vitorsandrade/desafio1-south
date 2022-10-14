@@ -17,6 +17,7 @@ public class ProductController {
 	ProductService productService;
 
 	public ProductController() {
+		DataBase.instance().persistFileData();
 		this.products = DataBase.instance().recovering();
 		this.productService = new ProductService(products);
 	}
@@ -38,6 +39,10 @@ public class ProductController {
 	}
 
 	public static String menu() {
+
+		ProductService.insertDataBase("MODELO", BigDecimal.ZERO, 0, "MODELO", "000000000000", "00000000", "MODELO",
+				"MODELO", "MODELO", LocalDate.now(), LocalDate.now(), "00/0000");
+
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 
@@ -59,9 +64,6 @@ public class ProductController {
 
 	public void start() {
 		Scanner scan = new Scanner(System.in);
-
-		ProductService.insertDataBase("MODELO", BigDecimal.ZERO, 0, "MODELO", "000000000000", "00000000", "MODELO", "MODELO",
-				"MODELO", LocalDate.now(), LocalDate.now(), "00/0000");
 
 		int fim = 0;
 

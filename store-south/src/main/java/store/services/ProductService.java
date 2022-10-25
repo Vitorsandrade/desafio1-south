@@ -3,6 +3,7 @@ package store.services;
 import static store.validations.Validates.validateAmount;
 import static store.validations.Validates.validatePrice;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -21,7 +22,7 @@ public class ProductService {
 
 	}
 
-	public static void postProduct() {
+	public static void postProduct() throws IOException {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 
@@ -91,7 +92,7 @@ public class ProductService {
 
 	}
 
-	public static void putProduct() {
+	public static void putProduct() throws IOException {
 
 		if (products.size() > 1) {
 			DataBase.instance().getAll();
@@ -184,7 +185,7 @@ public class ProductService {
 
 	}
 
-	public static void deleteProduct() {
+	public static void deleteProduct() throws IOException {
 		if (products.size() > 1) {
 			DataBase.instance().getAll();
 

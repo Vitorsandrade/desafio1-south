@@ -20,7 +20,6 @@ public class DataBase {
 
 	private static final DataBase dataBase = new DataBase();
 
-	
 	public static DataBase instance() {
 		return dataBase;
 	}
@@ -98,24 +97,32 @@ public class DataBase {
 		} while (!option);
 	}
 
-	public void saveOnFile() {
-		
+	public void saveOnFile() throws IOException {
+
 		final var file = this.getClass().getClassLoader().getResource("storage.csv");
-		
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(file.getFile()))) {
+		BufferedWriter bw = null;
+
+		try {
+
+			bw = new BufferedWriter(new FileWriter(file.getFile()));
+
 			bw.write(
 					"codigo, codigo de barras, serie, nome, descricao, categoria, valor bruto, data de fabricacao, data de validade, cor, material, quantidade");
 			bw.newLine();
 			for (Product product : DataBase.instance().recovering().values()) {
 				bw.write(product.toStringFile());
 				bw.newLine();
-				
 			}
-		} catch (IOException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (bw != null) {
+				bw.flush();
+				bw.close();
+			}
 		}
 	}
-	
 
 	public Map<String, Product> persistFileData() {
 

@@ -1,5 +1,6 @@
 package store.controllers;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -62,7 +63,7 @@ public class ProductController {
 		return option;
 	}
 
-	public void start() {
+	public void start() throws IOException {
 		Scanner scan = new Scanner(System.in);
 
 		int fim = 0;

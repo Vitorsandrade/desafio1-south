@@ -20,6 +20,7 @@ public class DataBase {
 
 	private static final DataBase dataBase = new DataBase();
 
+	
 	public static DataBase instance() {
 		return dataBase;
 	}
@@ -98,15 +99,17 @@ public class DataBase {
 	}
 
 	public void saveOnFile() {
-		String path = "src\\main\\resources\\storage.csv";
-
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
+		
+		final var file = this.getClass().getClassLoader().getResource("storage.csv");
+		
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(file.getFile()))) {
 			bw.write(
 					"codigo, codigo de barras, serie, nome, descricao, categoria, valor bruto, data de fabricacao, data de validade, cor, material, quantidade");
 			bw.newLine();
 			for (Product product : DataBase.instance().recovering().values()) {
 				bw.write(product.toStringFile());
 				bw.newLine();
+				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -115,10 +118,10 @@ public class DataBase {
 	
 
 	public Map<String, Product> persistFileData() {
-		String path = "src/main/resources/storage.csv";
 
+		final var file = this.getClass().getClassLoader().getResource("storage.csv");
 
-		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(file.getFile()))) {
 			String line = br.readLine();
 			String data[];
 
